@@ -1,17 +1,19 @@
 # Indutor DIY para Dynavap
 
-Aquecedor por indução de mesa (12 V) para caps metálicos Dynavap. Este kit junta o que Reddit (`r/inductionheaters`), FuckCombustion, VapOven, Thingiverse/Printables e aparelhos comerciais (Wand, YLL 3.0) acertam — e descarta o que queima módulo ou deixa o clique inconsistente.
+**v1 fechada (set/2026).** Aquecedor de mesa **12 V 10 A** na tomada, caixa 3D pronta para imprimir (relevo AMS ou cavas + cola). Pack de 18650/21700 fica para uma **v2**.
+
+Este kit junta o que Reddit (`r/inductionheaters`), FuckCombustion, VapOven, Thingiverse/Printables e aparelhos comerciais (Wand, YLL 3.0) acertam — e descarta o que queima módulo ou deixa o clique inconsistente.
 
 | Documento | Conteúdo |
 |---|---|
 | [BOM e fiação](BOM_E_FIACAO.md) | Lista de peças no Brasil, pinos do Nano, diagrama |
+| [**Caixa 3D v1**](caixa-3d/README.md) | [Lisa](caixa-3d/print/v1-lisa/), [relevo AMS](caixa-3d/print/v1/) ou [cavas](caixa-3d/print/v1-cavas/) |
 | [Lista Mercado Livre](LISTA_COMPRAS_MERCADOLIVRE.md) | Buscas + anúncios + frete CEP 72120-250 |
 | [Lista Shopee](LISTA_COMPRAS_SHOPEE.md) | Mesmo modelo de checklist na Shopee |
 | [**Lista híbrida**](LISTA_COMPRAS_HIBRIDA.md) | **Melhor custo total — modelo, preço e frete por pedido** |
 | [Firmware](firmware/indutor_dynavap.ino) | Botão, timeout 60 s, pulso lento, corte a 60 °C |
 | [Afinação e segurança](AFINACAO_E_SEGURANCA.md) | Bobina 16 mm, alvo 60–70 W, checklist |
-
-**v1 = tomada.** Pack de 18650/21700 fica para uma v2, depois que o desktop estiver estável.
+| [**Maquetes 3D**](maquetes/viewer.html) | Visualizador interativo e [montagem](maquetes/MONTAGEM.md) |
 
 ---
 
@@ -94,4 +96,4 @@ flowchart LR
 
 Firmware: botão pressionado aquece, soltou para; timeout 60 s se o botão travar; duty pelo potenciómetro; não dispara com dissipador ≥ 60 °C. O clique do cap é o feedback — não há malha IR nesta versão.
 
-Próximo passo: comprar pela [**lista híbrida**](LISTA_COMPRAS_HIBRIDA.md) (ou [ML](LISTA_COMPRAS_MERCADOLIVRE.md) / [Shopee](LISTA_COMPRAS_SHOPEE.md)), ligar conforme [BOM](BOM_E_FIACAO.md), gravar o [firmware](firmware/indutor_dynavap.ino), depois [afinar a bobina](AFINACAO_E_SEGURANCA.md).
+Próximo passo: imprimir uma das variantes em [`caixa-3d/print/`](caixa-3d/print/README.md), comprar pela [**lista híbrida**](LISTA_COMPRAS_HIBRIDA.md) (ou [ML](LISTA_COMPRAS_MERCADOLIVRE.md) / [Shopee](LISTA_COMPRAS_SHOPEE.md)), ligar conforme [BOM](BOM_E_FIACAO.md), gravar o [firmware](firmware/indutor_dynavap.ino), depois [afinar a bobina](AFINACAO_E_SEGURANCA.md).

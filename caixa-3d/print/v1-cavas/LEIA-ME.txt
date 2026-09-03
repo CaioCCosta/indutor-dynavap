@@ -1,0 +1,9 @@
+Pack v1 — cavas + cola (paralelo ao relevo AMS em print\v1)
+
+v1 fechada (set/2026).
+
+corpo_cava.stl / tampa_cava.stl = casca com cava 0,6 mm
+decais.stl = 6 inserts 0,5 mm deitados (ou decal_frente.stl etc.)
+
+Imprima casca e inserts separado. Cole o tribal nas cavas.
+NAO use Assemble com o pack print\v1.

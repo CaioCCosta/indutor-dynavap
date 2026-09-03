@@ -2,7 +2,7 @@
 
 Alvo desta v1: clique em **5–8 s** com **~60–70 W** (cerca de 5–6 A em 12 V com o cap inserido). Clique abaixo de 3 s costuma super-extrair; acima de 12 s a bobina está frouxa ou o duty está baixo demais.
 
-Firmware e pinos: [indutor_dynavap.ino](firmware/indutor_dynavap.ino) e [BOM_E_FIACAO.md](BOM_E_FIACAO.md).
+Firmware e pinos: [indutor_dynavap.ino](firmware/indutor_dynavap.ino) e [BOM_E_FIACAO.md](BOM_E_FIACAO.md). Caixa oficial v1: [lisa](caixa-3d/print/v1-lisa/), [relevo](caixa-3d/print/v1/) ou [cavas](caixa-3d/print/v1-cavas/).
 
 ---
 
@@ -25,7 +25,7 @@ A bobina de fábrica do ZVS 120 W vem com ~23–28 mm de diâmetro interno. O ca
 4. Mesmo número de voltas da bobina original se você medi-las antes de desmontar — ponto de partida mais seguro.
 5. Soldar na placa.
 
-O tubo de vidro fica **dentro** da bobina. O-ring 15×3 mm trava o tubo na caixa. A trava (cavilha, cortiça ou cerâmica) vai no **fundo** do tubo e define a profundidade do cap.
+O tubo de vidro fica **dentro** da bobina. O-ring 15×3 mm fixa o tubo na caixa. O **fundo fechado** do tubo (ensaio 16×100 cortado) é o stop do cap. A cama cerâmica 24×24 fica **sob** o fundo (isola PETG). O ímã Ø12×3 na **tampa** é só descanso upright — não define profundidade.
 
 ---
 
@@ -33,11 +33,11 @@ O tubo de vidro fica **dentro** da bobina. O-ring 15×3 mm trava o tubo na caixa
 
 O campo é uma banda quente no **centro** das espiras. Mais cap dentro da bobina = mais cobre “vendo” metal = clique mais rápido.
 
-| Objetivo | Trava |
+| Objetivo | Ajuste |
 |---|---|
 | Primeiro teste | Cap **inteiro** na bobina |
-| Clique < 3 s | Subir a trava (menos cap no centro) ou abrir um pouco as espiras / baixar o pot |
-| Clique > 12 s | Descer a trava, apertar espiras ou subir o pot |
+| Clique < 3 s | Menos cap no centro / abrir espiras / baixar pot |
+| Clique > 12 s | Mais cap na bobina / apertar espiras / subir pot |
 | Sabor / terpenos | Um pouco menos fundo, duty menor (pulso) |
 | Nuvem | Cap inteiro, duty alto, ainda na faixa 60–70 W |
 
@@ -50,10 +50,10 @@ Marque a posição boa com uma fita no tubo. A repetibilidade é o motivo de exi
 Faça com a caixa aberta, multímetro em série no positivo (escala 10 A DC) se possível, e o interruptor geral à mão.
 
 1. **Bobina no ar, sem cap.** Pulso curto. Corrente ociosa baixa (cerca de 1–2 A nos ZVS bem comportados). Fonte não pode piscar nem cair abaixo de ~11,5 V.
-2. **Pot no mínimo** (sentido do sketch = potência cheia). Inserir o Dynavap até a trava. Contar até o clique.
+2. **Pot no mínimo** (sentido do sketch = potência cheia). Inserir o Dynavap até o fundo do tubo. Contar até o clique.
 3. Alvo **5–8 s**. Anotar corrente com o cap dentro.
 4. Potência elétrica ≈ `12 V × corrente`. Ajustar pot e/ou bobina para **~5–6 A (60–72 W)**. Não persiga o 10 A nominais do módulo.
-5. Se a fonte entrar em proteção: espiras demais / diâmetro pequeno demais / cap enfiado demais. Abra a bobina ou suba a trava.
+5. Se a fonte entrar em proteção: espiras demais / diâmetro pequeno demais / cap enfiado demais. Abra a bobina ou reduza a penetração do cap.
 6. Se o clique não vem: cap de vidro/cerâmica, bobina frouxa, polaridade do MOSFET, ou TRIG invertido (`MOSFET_ACTIVE_HIGH`).
 7. Com o TMP36 no dissipador, segure o botão: em ≥ 60 °C o LED status pisca rápido e o ZVS corta. Solte e espere cair de 55 °C. Serial `Ts=0` significa sensor ausente ou leitura absurda — o corte térmico fica desligado até o TMP36 estar no dissipador.
 8. Segure 60 s de propósito: o firmware corta (pisca lento). Solte o botão para rearmar.

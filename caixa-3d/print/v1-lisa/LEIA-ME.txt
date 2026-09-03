@@ -1,0 +1,7 @@
+Pack v1 — caixa lisa (sem tribal)
+
+corpo_liso.stl  = corpo + pads
+tampa_lisa.stl  = tampa
+
+PETG 0,2 mm. Sem Assemble.
+Outras: print\v1 (relevo) e print\v1-cavas (cola).

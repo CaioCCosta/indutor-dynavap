@@ -55,19 +55,20 @@ Estratégia: **no máximo 2 fretes**. Links abaixo abrem o anúncio ou uma busca
 | A2 | MOSFET XY-MOS 15 A 400 W | **OK** | [XY-MOS](https://shopee.com.br/M%C3%B3dulo-Driver-Para-Pwm-5v-36v-15a-400w-Xy-mos-i.436232821.9753969774) |
 | A3 | Nano V3 ATmega328 + cabo | **OK** | [Nano](https://shopee.com.br/Placa-Nano-V3-Atmega328-Pinos-Soldados-Cabo-Para-Arduino-i.564186623.21397793828) |
 | A4 | TMP36 TO-92 | **OK** | [TMP36](https://shopee.com.br/Sensor-De-Temperatura-Tmp36-To92-C%C3%B3digo-1025--i.362820645.11885701058) |
-| A5 | Pot B10K | **via kit** | [Kit Uno Starter](https://shopee.com.br/Kit-Arduino-Uno-Starter-(Compativel)-com-Protoboard-e-Componentes-Eletronicos-para-Iniciante-Eletronica-Robotica-i.413370384.14291335771) — confira se tem pot 10k |
-| A6 | Botão momentâneo | **OK*** | [Pulso 19 mm](https://shopee.com.br/Bot%C3%A3o-Pulso-Moment%C3%A2neo-19mm-Led-12v-24v-i.371650678.21953103073) — use só os contatos; LED interno é 12/24 V (ignore ou alimente do 12 V) |
-| A7 | Rocker KCD1 | **OK** | [Gangorra KCD1](https://shopee.com.br/Kit-Chaves-Gangorra-Com-Led-3-Polos-KCD1-6a-250v-10a-127-i.1215439885.19798144413) |
-| A8 | Fusível 10 A + suporte | **OK** | [Porta 5×20 + 10 A](https://shopee.com.br/2-KIT-PORTA-FUS%C3%8DVEL-5x20-FUSIVEIS-10A-i.401537788.58211270973) |
+| A5 | Pot B10K | **via kit** | Furo **Ø7,6** — [Kit Uno Starter](https://shopee.com.br/Kit-Arduino-Uno-Starter-(Compativel)-com-Protoboard-e-Componentes-Eletronicos-para-Iniciante-Eletronica-Robotica-i.413370384.14291335771) |
+| A6 | Botão momentâneo | **OK*** | [Pulso 19 mm](https://shopee.com.br/Bot%C3%A3o-Pulso-Moment%C3%A2neo-19mm-Led-12v-24v-i.371650678.21953103073) — furo **Ø19,2**; só contatos (LED 12/24 V) |
+| A7 | Gangorra redonda LED | **OK** | [KCD1-106N](https://shopee.com.br/Kit-Chaves-Gangorra-Com-Led-3-Polos-KCD1-6a-250v-10a-127-i.1215439885.19798144413) — furo **Ø20,2**; LED interno pode não acender em 12 V DC |
+| A8 | Fusível 10 A + suporte | **OK** | [Porta 5×20 + 10 A](https://shopee.com.br/2-KIT-PORTA-FUS%C3%8DVEL-5x20-FUSIVEIS-10A-i.401537788.58211270973) — furo traseiro **Ø13,2** |
 | A9 | LED + resistor 5 V | **via kit** | No kit starter; se faltar, LED + resistor **5 V** |
 | A10 | Fio 16 AWG silicone | **OK*** | [Fio siliconado](https://shopee.com.br/Fio-siliconado-8awg-10awg-12awg-14awg-16awg-18awg-20awg-50cm-vermelho-e-preto-bateria-lipo-drone-aeromodelo-silicone-i.388403980.8071601504) — no dropdown escolha **16 AWG** (não 8/10) |
 | A11 | Jumpers | **via kit** | Kit starter |
 | A12 | O-ring 15×3 | **OK*** | [Jogo 225 anéis](https://shopee.com.br/JOGO-COM-225-ANEIS-DE-VEDACAO-DE-BORRACHA-O-RING-18-TAMANHOS-i.531578878.23893983854) — confira se inclui **15×3** |
-| A13 | Trava altura | Casa / depois | Cortiça / cavilha |
-| A14 | Caixa | **3D** | [acsdog](https://www.printables.com/model/1067938-dynavap-induction-heater-box-with-pwm) — [guia](caixa-3d/README.md) |
-| A15 | Jack P4 5,5×2,1 | **OK** | [Jack fêmea](https://shopee.com.br/Conector-Plug-Jack-Tipo-P4-Dc-Femea-Dc-022-2-1x5-5mm-01UN-i.778214063.18697736011) |
+| A13 | Cama cerâmica 24×24 mm | **OK** | [Roldana isolador chocadeira](https://shopee.com.br/KIT-4-Roldanas-Isolador-Cer%C3%A2mico-24-X-24-Mm-Chocadeira-i.536455119.12843383768) — sob o fundo do tubo |
+| A14 | Caixa | **3D v1** | [Lisa](caixa-3d/print/v1-lisa/), [relevo](caixa-3d/print/v1/) ou [cavas](caixa-3d/print/v1-cavas/) — [guia](caixa-3d/README.md) |
+| A15 | Jack P4 5,5×2,1 | **OK** | [Jack fêmea](https://shopee.com.br/Conector-Plug-Jack-Tipo-P4-Dc-Femea-Dc-022-2-1x5-5mm-01UN-i.778214063.18697736011) — furo **Ø8,2** |
+| A16 | Ímã descanso Ø12×3 | **comprar** | Disco neodímio p/ Dynavap upright na tampa — ver A16 |
 
-**Ainda falta (Pacote B / ML):** fonte **12 V 10 A** · manga de vidro Ø16 mm (só se não tiver).  
+**Ainda falta (Pacote B):** fonte **12 V 10 A** · tubo de ensaio **16×100** (vidro comum, fundo fechado — ver B2) · ímã A16.  
 **Atenção frete:** vários vendedores = vários fretes; se o total de frete passar ~R$ 25–30, vale juntar o que der na mesma loja.
 
 ---
@@ -197,8 +198,9 @@ Estratégia: **no máximo 2 fretes**. Links abaixo abrem o anúncio ou uma busca
 |---|---|
 | **Texto para buscar** | `potenciometro 10k linear B10K` |
 | **Preço est.** | R$ 3–8 |
+| **Furo no painel** | **Ø7,6 mm** (bushing WH148 ~Ø7,2–7,5 + folga print) |
 
-**Como reconhecer:** rosca **B10K** ou **10K linear** (não logarítmico A10K). Eixo 6 mm se for no painel.
+**Como reconhecer:** rosca **B10K** ou **10K linear** (não logarítmico A10K). Eixo 6 mm se for no painel. Corpo atrás do painel ~Ø16–17 mm — o furo é só a rosca, não o corpo.
 
 | Link | Tipo |
 |---|---|
@@ -212,50 +214,57 @@ Estratégia: **no máximo 2 fretes**. Links abaixo abrem o anúncio ou uma busca
 
 | Campo | Valor |
 |---|---|
-| **Texto para buscar** | `botao momentaneo painel 16mm` |
+| **Texto para buscar** | `botao momentaneo painel 19mm` |
 | **Preço est.** | R$ 3–10 |
+| **Furo no painel** | **Ø19,2 mm** (nominal 19 mm + 0,2 print); cabeça típ. Ø22 |
+| **Escolhido** | [Pulso 19 mm LED 12/24 V](https://shopee.com.br/Bot%C3%A3o-Pulso-Moment%C3%A2neo-19mm-Led-12v-24v-i.371650678.21953103073) |
 
-**Como reconhecer:** **momentâneo** (volta ao soltar). Não comprar botão **toggle/trava**.
+**Como reconhecer:** **momentâneo** (volta ao soltar). Não comprar botão **toggle/trava**. Use só os contatos SPST; LED interno é 12/24 V (ignore ou alimente do 12 V).
 
 | Link | Tipo |
 |---|---|
-| [Busca: botao momentaneo painel](https://shopee.com.br/search?keyword=botao%20momentaneo%20painel) | **Busca** |
-| [Busca alt.: push button momentaneo](https://shopee.com.br/search?keyword=push%20button%20momentaneo) | Busca |
+| [Anúncio 19 mm (escolhido)](https://shopee.com.br/Bot%C3%A3o-Pulso-Moment%C3%A2neo-19mm-Led-12v-24v-i.371650678.21953103073) | **Anúncio** |
+| [Busca: botao momentaneo 19mm](https://shopee.com.br/search?keyword=botao%20momentaneo%20painel%2019mm) | Busca |
 
 - [ ] A6 comprado
 
 ---
 
-## A7 — Chave rocker KCD1 ≥ 6 A
+## A7 — Chave gangorra redonda KCD1-106N ≥ 6 A
 
 | Campo | Valor |
 |---|---|
-| **Texto para buscar** | `chave rocker KCD1 12V 6A` |
+| **Texto para buscar** | `chave gangorra redonda led 20mm KCD1` |
 | **Preço est.** | R$ 3–8 |
+| **Furo no painel** | **Ø20,2 mm** (nominal 20 mm + 0,2 print) |
+| **Escolhido** | [Gangorra LED 3 polos](https://shopee.com.br/Kit-Chaves-Gangorra-Com-Led-3-Polos-KCD1-6a-250v-10a-127-i.1215439885.19798144413) |
 
-**Como reconhecer:** rocker **KCD1** (retangular ~20×15 mm), rating **≥ 6 A** no positivo de 12 V.
+**Como reconhecer:** **redonda** (~Ø20 mm), 3 polos, rating **≥ 6 A**. O neon/LED do kit costuma ser **127/220 V AC** e **não acende em 12 V DC** — use os contatos ON/OFF; o LED interno pode ficar apagado.
 
 | Link | Tipo |
 |---|---|
-| [Busca: chave rocker KCD1](https://shopee.com.br/search?keyword=chave%20rocker%20kcd1) | **Busca** |
+| [Anúncio (escolhido)](https://shopee.com.br/Kit-Chaves-Gangorra-Com-Led-3-Polos-KCD1-6a-250v-10a-127-i.1215439885.19798144413) | **Anúncio** |
+| [Busca: chave gangorra redonda led](https://shopee.com.br/search?keyword=chave%20gangorra%20redonda%20led) | Busca |
 
 - [ ] A7 comprado
 
 ---
 
-## A8 — Fusível 10 A + suporte
+## A8 — Fusível 10 A + suporte painel 5×20
 
 | Campo | Valor |
 |---|---|
-| **Texto para buscar** | `fusivel 10A suporte inline` ou `porta fusivel 10A DC` |
+| **Texto para buscar** | `porta fusivel 5x20 painel 10A` |
 | **Preço est.** | R$ 5–12 |
+| **Furo traseiro** | **Ø13,2 mm** (painel 5×20 típ. Ø12–13) |
+| **Escolhido** | [2-KIT porta-fusível 5×20 + 10 A](https://shopee.com.br/2-KIT-PORTA-FUS%C3%8DVEL-5x20-FUSIVEIS-10A-i.401537788.58211270973) |
 
-**Como reconhecer:** fusível **10 A** lâmina/AGC + suporte **inline** ou de painel. Vai no **positivo** perto da fonte.
+**Como reconhecer:** fusível **vidro 5×20 mm 10 A** + suporte **de painel** (tampa rosqueável). Vai no **positivo** logo após o jack, na **traseira** da caixa.
 
 | Link | Tipo |
 |---|---|
-| [Busca: fusivel 10a suporte](https://shopee.com.br/search?keyword=fusivel%2010a%20suporte) | **Busca** |
-| [Busca alt.: porta fusivel inline 10a](https://shopee.com.br/search?keyword=porta%20fusivel%20inline%2010a) | Busca |
+| [Anúncio (escolhido)](https://shopee.com.br/2-KIT-PORTA-FUS%C3%8DVEL-5x20-FUSIVEIS-10A-i.401537788.58211270973) | **Anúncio** |
+| [Busca: porta fusivel 5x20 painel](https://shopee.com.br/search?keyword=porta%20fusivel%205x20%20painel) | Busca |
 
 - [ ] A8 comprado
 
@@ -267,6 +276,7 @@ Estratégia: **no máximo 2 fretes**. Links abaixo abrem o anúncio ou uma busca
 |---|---|
 | **Texto para buscar** | `kit led 5mm resistor` ou `LED 5mm 5V` |
 | **Preço est.** | R$ 3–8 |
+| **Furo no painel** | **Ø5,2 mm** (2×) |
 
 Os LEDs ligam nos pinos **D5/D6 do Nano (5 V)**. Se a loja só oferecer opção por tensão (**5 V / 9 V / 12 V / 24 V**), escolha **5 V** — isso é o resistor certo para Arduino. **Não** pegue 12 V/24 V (LED fica apagado ou fraco demais neste circuito).
 
@@ -330,39 +340,49 @@ Se a loja mostrar ohms: **220–470 Ω** ¼ W. Precisa de **2 LEDs 5 mm** + **2 
 
 ---
 
-## A13 — Trava de altura (~16 mm)
+## A13 — Cama cerâmica 24×24 mm (escolhida)
+
+**Não vai dentro do tubo.** Fica **embaixo** do fundo fechado do tubo de ensaio: aparador térmico entre o vidro quente e a base PETG.
 
 | Campo | Valor |
 |---|---|
-| **Texto para buscar** | `cavilha 16mm` ou `rolha cortica pequena` |
-| **Preço est.** | R$ 0–8 |
+| **Peça** | Roldana / isolador cerâmico **24 × 24 mm** (chocadeira) |
+| **Ø externo** | **24 mm** (maior que o tubo OD 16 mm — correto para “cama”) |
+| **Furo central** | ~**5 mm** (opcional: parafuso nylon/plástico; nunca metal perto da bobina) |
+| **Material** | Porcelana esmaltada — não aquece por indução |
+| **Preço est.** | R$ 10–20 (kit com 4; use 1) |
 
-**Como reconhecer:** cavilha/rolha/cortiça ~**16 mm** de diâmetro para ajustar altura do Dynavap no tubo. Pode improvisar em casa.
+**Função no projeto**
+
+| Quem faz o quê | Peça |
+|---|---|
+| Para o cap do M7 | **Fundo fechado do tubo** (vidro) |
+| Isola a caixa do calor | **Cerâmica 24×24 sob o tubo** |
+
+Montar **abaixo da bobina**, só sob o fundo do tubo. Se subir demais, a roldana 24 mm bate na coil (OD ~22 mm).
 
 | Link | Tipo |
 |---|---|
-| [Busca: cavilha 16mm](https://shopee.com.br/search?keyword=cavilha%2016mm) | Busca |
-| [Busca: rolha cortica](https://shopee.com.br/search?keyword=rolha%20cortica%20pequena) | Busca |
+| [KIT 4 roldanas isolador 24×24 mm chocadeira](https://shopee.com.br/KIT-4-Roldanas-Isolador-Cer%C3%A2mico-24-X-24-Mm-Chocadeira-i.536455119.12843383768) | **Anúncio (escolhido)** |
 
-- [ ] A13 comprado / improvisado
+- [x] A13 definido (24×24 mm sob o tubo)
 
 ---
 
-## A14 — Caixa 3D (não comprar ABS)
+## A14 — Caixa 3D v1 (não comprar ABS)
 
 | Campo | Valor |
 |---|---|
-| **Projeto recomendado** | [acsdog — Box With PWM](https://www.printables.com/model/1067938-dynavap-induction-heater-box-with-pwm) |
-| **Preço** | **R$ 0** (imprimir) |
-| **Guia local** | [caixa-3d/README.md](caixa-3d/README.md) |
+| **Projeto** | OpenSCAD neste repo — 92×58×65 + tampa 8 + ímã X=−14 |
+| **Imprimir** | [Lisa](caixa-3d/print/v1-lisa/), [relevo AMS](caixa-3d/print/v1/) **ou** [cavas](caixa-3d/print/v1-cavas/) |
+| **Uma cor (união)** | Fallback [`box_body.stl`](caixa-3d/stl/box_body.stl) · [`box_lid.stl`](caixa-3d/stl/box_lid.stl) |
+| **Preço** | **R$ 0** (imprimir PETG/ASA) |
+| **Guia** | [caixa-3d/README.md](caixa-3d/README.md) · [packs](caixa-3d/print/README.md) |
+| **Export** | `.\caixa-3d\export.ps1` (OpenSCAD) |
 
-**Baixe:** corpo + tampa + coil chuck (domínio público). PETG preferível; PLA serve se o ZVS ventilar.
+**Não compre** caixa ABS pronta se for imprimir. Legado opcional: [acsdog](https://www.printables.com/model/1067938-dynavap-induction-heater-box-with-pwm) / [jnico](https://www.thingiverse.com/thing:4171627).
 
-**Por quê acsdog:** pensado para ZVS + MOSFET + pot/PWM no painel; inclui gabarito de bobina; FreeCAD editável. Alternativa clássica: [jnico / Thingiverse](https://www.thingiverse.com/thing:4171627) (mas a fonte original era 6 A — use a nossa **10 A**).
-
-**Não compre** caixa ABS na Shopee se for imprimir.
-
-- [ ] A14 impresso (acsdog)
+- [ ] A14 impresso (nossa caixa)
 
 ---
 
@@ -370,17 +390,40 @@ Se a loja mostrar ohms: **220–470 Ω** ¼ W. Precisa de **2 LEDs 5 mm** + **2 
 
 Só se a fonte do Pacote B tiver **plug P4** em vez de bornes.
 
+| Campo | Valor |
+|---|---|
+| **Escolhido** | [Jack fêmea DC-022 2,1×5,5](https://shopee.com.br/Conector-Plug-Jack-Tipo-P4-Dc-Femea-Dc-022-2-1x5-5mm-01UN-i.778214063.18697736011) |
+| **Furo traseiro** | **Ø8,2 mm** (rosca típ. Ø8 + folga print) |
+
 | Link | Tipo |
 |---|---|
+| [Anúncio DC-022 (escolhido)](https://shopee.com.br/Conector-Plug-Jack-Tipo-P4-Dc-Femea-Dc-022-2-1x5-5mm-01UN-i.778214063.18697736011) | **Anúncio** |
 | [Busca: jack dc 5.5 2.1 femea](https://shopee.com.br/search?keyword=jack%20dc%205.5%202.1%20femea) | Busca |
 
 - [ ] A15 comprado (ou dispensado)
 
 ---
 
+## A16 — Ímã de descanso Ø12×3 mm (tampa)
+
+Cola na **cavidade** do topo esquerdo da tampa. Segura o Dynavap **em pé** pelo cap entre sessões. Preferir **magnetização diametral**.
+
+| Exemplo | Spec | Força / uso | Link |
+|---|---|---|---|
+| VapOven Cooling Magnet | 12×3 N52 **diametral** (ou 12×6) | Feito p/ Dynavap | [vapoven.com](https://vapoven.com/product/vapoven-cooling-magnet/) |
+| DynaMag | 12,6×1,5 diametral | Compacto; cabe no pocket | [dynavap.com](https://www.dynavap.com/products/the-dynamag) |
+| MadMag | 14×2 | Mais forte (decap); mude `MAGNET_D` | [madheaters](https://madheaters.co.uk/products/madmag) |
+| BR axial (fácil) | **12×3 N35** | ~1–2,5 kg tração ideal — sobra p/ M7 (~30 g) | [Polo Magnético](https://www.polomagnetico.com.br/ima-de-neodimio/disco/ima-de-neodimio-12-x-3-mm-n35) · [Lorben 10un](https://www.lorben.com.br/10-pecas-ima-neodimio-12x3mm-disco-pastilha-super-forte) |
+
+Cola: Super Bonder ou epóxi 5 min. Não exceda ~80 °C no ímã.
+
+- [ ] A16 comprado (12×3; diametral se achar)
+
+---
+
 ### Checklist Pacote A (antes de pagar)
 
-- [ ] Todos os itens A1–A14 na **mesma loja** Shopee
+- [ ] Itens A1–A12/A15 na **mesma loja** Shopee quando possível (A13 já escolhido: roldana 24×24)
 - [ ] ZVS = **5–12 V / 120 W** com **bobina na foto**
 - [ ] MOSFET = **15 A 400 W** com **bornes** (não IRF520 mini)
 - [ ] Nano = **V3 ATmega328 CH340**
@@ -427,29 +470,49 @@ Filtro sugerido: [Full + frete grátis](https://lista.mercadolivre.com.br/_Costo
 
 ---
 
-## B2 — Tubo vidro Ø ~16 mm (câmara do aquecedor)
+## B2 — Tubo de ensaio Ø16 mm, fundo fechado (v1 reformulada)
 
-**Não é para fabricar um Dynavap.** É a **manga de vidro** que fica **dentro da bobina**. Você enfia o **seu M7** (já tem) nessa manga. O M7 continua sendo o vaporizador; B2 é peça do indutor.
+**Decisão:** borossilicato fino Ø15–16 mm sumiu do varejo fácil (Cloutank M3 legado; VaptBR 16×2,5 mm é grosso demais). **v1 usa tubo de ensaio de vidro comum 16×100 ou 16×150**, fundo fechado.
 
 | Campo | Valor |
 |---|---|
-| **Texto para buscar** | `cloupor cloutank m3 vidro` ou `tubo vidro borossilicato 16mm fino` |
-| **Preço est.** | R$ 12–28 |
-| **Se você já tem manga Ø16 mm parede fina** | **Pule B2** |
+| **Tamanho no dropdown** | **16×100** ou **16×150** (Ø 16 mm × comprimento) |
+| **Fundo** | **Fechado** — é a trava do cap |
+| **Material** | Vidro comum / neutro (aceitável na v1) |
+| **Uso** | Corte em **~40–50 mm**, **mantenha o fundo** |
+| **Preço est.** | R$ 3–15 |
+
+**Por que vidro comum serve aqui**
+
+| Fato | Efeito |
+|---|---|
+| Vidro **não** aquece por indução | Só esquenta por **contato** com o cap (~5–8 s) |
+| Fundo fechado | Cap para no vidro; não precisa insert interno |
+| Cama A13 24×24 sob o tubo | Isola PETG do fundo quente |
+| Timeout 60 s + TMP36 | Limita aquecimento prolongado |
+
+**Risco residual:** choque térmico (trinca) maior que borossilicato. Sessões curtas; se trincar, troca o tubo (barato).
 
 **Como reconhecer (certo)**
 
-- **Ø externo ~16 mm**, parede **~1 mm**, comprimento ~40–60 mm (Cloupor M3 ~78 mm)
-- Cap do **M7** entra folgado; O-ring 15×3 trava o tubo na caixa
+| Spec | Valor |
+|---|---|
+| Ø externo | **16 mm** |
+| Comprimento comprado | 100 ou 150 mm |
+| Comprimento no projeto | ~40–50 mm (fundo intacto) |
+| ID típico | ~13–14 mm (cap ~10 mm entra) |
 
-**Evitar:** tubo industrial **16×2,5 mm** (cap trava); tubo de ensaio com rosca.
+**Evitar:** Ø 8 / 10 / 12 / 13 mm · tubo sem fundo · industrial 16×2,5 mm.
 
 | Link | Tipo |
 |---|---|
-| [Busca Full: cloupor cloutank m3 vidro](https://lista.mercadolivre.com.br/cloupor-cloutank-m3-vidro_Frete_Full_NoIndex_True) | **Busca** |
-| [Busca: tubo vidro borossilicato 16mm](https://lista.mercadolivre.com.br/tubo-vidro-borossilicato-16mm_Frete_Full_NoIndex_True) | Busca |
+| [Tubo ensaio vidro comum sem tampa — UN Global Trade](https://shopee.com.br/Tubo-de-Ensaio-Vidro-Comum-sem-Tampa-Borda-UN-Global-Trade-i.219768015.14233682454) | **Anúncio (escolhido)** — dropdown **16×100** ou **16×150** |
+| [Shopee: tubo de ensaio 16x100](https://shopee.com.br/search?keyword=tubo%20de%20ensaio%2016x100) | Busca alternativa |
+| [ML: tubo ensaio 16x100](https://lista.mercadolivre.com.br/tubo-de-ensaio-16x100) | Fallback Pacote B |
 
-- [ ] B2 comprado **ou** já tenho manga compatível (M7 ≠ manga)
+**Opcional depois (upgrade):** se achar borossilicato parede fina OD 15–16 mm, troca só o tubo; a cama 24×24 continua igual.
+
+- [ ] B2 comprado **16×100 ou 16×150**, fundo fechado
 
 ---
 
@@ -539,10 +602,11 @@ Confira se o kit traz: pot 10k, botão momentâneo, rocker, fusível 10A, LEDs +
 | 4 | Arduino Nano V3 | **A** |
 | 5–11 | Pot, botão, rocker, fusível, jack, LEDs | **A** |
 | 12 | TMP36 | **A** |
-| 13 | Tubo vidro 16 mm fino | **B** |
+| 13 | Tubo ensaio 16×100/150 fundo fechado | **B** (ou Shopee) |
 | 14 | O-ring 15×3 | **A** |
-| 15 | Trava altura | **A** ou casa |
+| 15 | Cama cerâmica 24×24 mm | **A** |
 | 16–17 | Fios | **A** |
-| 18 | Caixa | **A** ou 3D |
+| 18 | Caixa (STL próprio) | **A** / 3D |
+| 19 | Ímã descanso 12×3 | **A16** |
 
-**19/19** em **2 pacotes** (ou 3 só com fallback Smart Kits/Saravati).
+**20/20** em **2 pacotes** (ou 3 só com fallback Smart Kits/Saravati).

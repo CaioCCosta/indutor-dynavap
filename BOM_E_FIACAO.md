@@ -16,19 +16,20 @@ Depois de soldar: [firmware](firmware/indutor_dynavap.ino) e [afinação](AFINAC
 | 4 | Arduino Nano | ATmega328, Mini-USB ou USB-C | ML, lojas de Arduino | R$ 25–50 |
 | 5 | Potenciómetro | 10 kΩ linear, eixo 6 mm | qualquer eletrônica | R$ 3–8 |
 | 6 | Botão | Momentâneo **SPST** (não use o botão para os 10 A) | — | R$ 2–8 |
-| 7 | Interruptor geral | Rocker ≥ 6 A no positivo de 12 V | — | R$ 3–10 |
-| 8 | Fusível | **10 A** + suporte no positivo, o mais perto da fonte | — | R$ 5–15 |
-| 9 | Jack DC fêmea | 5,5 × 2,1 mm, 5 A+ | — | R$ 3–8 |
+| 7 | Interruptor geral | Gangorra **redonda Ø20 mm**, ≥ 6 A no positivo 12 V | Shopee A7 | R$ 3–10 |
+| 8 | Fusível | **10 A** vidro 5×20 + **porta painel** (traseira) | Shopee A8 | R$ 5–15 |
+| 9 | Jack DC fêmea | **DC-022** 5,5 × 2,1 mm, painel | Shopee A15 | R$ 3–8 |
 | 10 | LED câmara | 5 mm + resistor **470 Ω** ¼ W | — | R$ 1 |
 | 11 | LED status | 5 mm (pode ser o onboard do Nano) | — | — |
 | 12 | Sensor | **TMP36** no dissipador do ZVS (alternativa: NTC 10 kΩ + 10 kΩ) | ML | R$ 5–15 |
-| 13 | Tubo de vidro | ~**16 mm** diâmetro externo (tanque Cloupor M3 / borossilicato) | vape shops, ML | R$ 10–30 |
+| 13 | Tubo de vidro | Ensaio **16×100/150**, vidro comum, **fundo fechado**; cortar ~40–50 mm | Shopee B2 | R$ 3–15 |
 | 14 | O-ring | 15 × 3 mm | — | R$ 2 |
-| 15 | Trava de altura | Cavilha 16 mm, cortiça ou cerâmica **ajustável** | — | R$ 0–15 |
+| 15 | Cama cerâmica | Roldana isolador **24×24 mm** (chocadeira) **sob** o fundo do tubo — não entra no tubo | Shopee A13 | R$ 10–20 |
 | 16 | Fio potência | 16–18 AWG, trechos curtos | — | R$ 5 |
 | 17 | Fio sinal | 22 AWG (botão, LED, sensor) | — | — |
-| 18 | Caixa | STL [jnico](https://www.thingiverse.com/thing:4171627) ou [acsdog](https://www.printables.com/model/1067938-dynavap-induction-heater-box-with-pwm), ou caixa de projeto **com fresta de ar** | — | R$ 0–40 |
-| 19 | Opcional | Fio esmaltado **16 AWG** para rebobinar | — | R$ 10–20 |
+| 18 | Caixa | Pack v1 [lisa](caixa-3d/print/v1-lisa/), [relevo](caixa-3d/print/v1/) ou [cavas](caixa-3d/print/v1-cavas/); 92×58×65 + tampa 8 | A14 | R$ 0–40 |
+| 19 | Ímã descanso | Disco neodímio **Ø12×3 mm** (preferir diametral) colado no topo esquerdo da tampa | A16 | R$ 3–25 |
+| 20 | Opcional | Fio esmaltado **16 AWG** para rebobinar | — | R$ 10–20 |
 
 Kit VapOven mains (~£45) já traz ZVS, MOSFET, botão, jack, vidro, fonte e cavilha — falta Arduino, pot, fusível, TMP36 e caixa. Frete UK costuma anular a vantagem.
 
@@ -106,7 +107,8 @@ MOSFET
 
 ZVS
   bornes da bobina ---- soldar a bobina (não confiar no borne de plástico)
-  bobina ---- ao redor do TUBO 16 mm ---- trava de altura no fundo
+  bobina ---- ao redor do TUBO 16 mm ---- fundo de vidro = stop do cap
+  ímã Ø12×3 ---- cavidade na TAMPA (descanso upright, não é trava)
 
 Nano
   D2 ---- botão ---- GND
@@ -138,6 +140,6 @@ Referência visual VapOven: [MOSFET wiring](https://vapoven.com/mosfet-wiring-di
 2. Ligar só o Nano (VIN/GND), gravar o firmware, confirmar LED e Serial.
 3. MOSFET **sem** ZVS: D3 HIGH deve aparecer 12 V em V+ out.
 4. Bobina no ar, ZVS nos bornes. Primeiro pulso **curto**. Se a fonte piscar ou a tensão cair abaixo de ~11,5 V, desligar — bobina curta ou fonte fraca.
-5. Só então tubo, trava e caixa. Afinação: [AFINACAO_E_SEGURANCA.md](AFINACAO_E_SEGURANCA.md).
+5. Só então tubo, cama cerâmica, caixa e ímã na tampa. Afinação: [AFINACAO_E_SEGURANCA.md](AFINACAO_E_SEGURANCA.md).
 
 Fios de potência curtos e grossos. Fios longos viram indutância extra e atrapalham o ZVS.

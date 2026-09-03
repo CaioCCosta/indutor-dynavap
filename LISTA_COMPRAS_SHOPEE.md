@@ -133,11 +133,10 @@ Histórico de agregadores: ZVS ~R$ 40–68 · MOSFET XY-MOS ~R$ 9–16.
 
 ### 18. Caixa / gabinete
 
-- [ ] Comprado / impresso
-- Busca: [caixa projeto ABS eletrônica](https://shopee.com.br/search?keyword=caixa%20projeto%20abs%20eletronica)
-- STL: [jnico](https://www.thingiverse.com/thing:4171627) · [acsdog](https://www.printables.com/model/1067938-dynavap-induction-heater-box-with-pwm)
-- Faixa: R$ 0–40
-- Ventilação obrigatória
+- [ ] Impresso (pack v1)
+- **STL oficial:** [lisa](caixa-3d/print/v1-lisa/), [relevo](caixa-3d/print/v1/) ou [cavas](caixa-3d/print/v1-cavas/) — [guia](caixa-3d/README.md)
+- Faixa: R$ 0–40 (PETG)
+- Ventilação traseira já no modelo
 
 ### 19. (Opcional) Fio esmaltado 16 AWG
 

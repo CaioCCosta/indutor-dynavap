@@ -1,5 +1,7 @@
 /*
- * Indutor DIY para Dynavap — v1 desktop
+ * Indutor DIY para Dynavap — v1 desktop fechada (set/2026)
+ *
+ * Mesa 12 V 10 A na tomada. Caixa v1: print/v1-lisa, print/v1 (relevo) ou print/v1-cavas (cola).
  *
  * Botão pressionado = aquece. Soltou = para.
  * Timeout 60 s (YLL 3.0) mesmo com o botão preso.

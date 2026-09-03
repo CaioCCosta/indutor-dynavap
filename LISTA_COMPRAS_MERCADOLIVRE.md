@@ -140,11 +140,10 @@ BOM completo: [BOM_E_FIACAO.md](BOM_E_FIACAO.md) · Shopee: [LISTA_COMPRAS_SHOPE
 
 ### 18. Caixa / gabinete
 
-- [ ] Comprado / impresso
-- Busca: [caixa projeto eletrônica ventilação](https://lista.mercadolivre.com.br/caixa-projeto-eletronica)
-- STL grátis: [jnico Thingiverse](https://www.thingiverse.com/thing:4171627) · [acsdog Printables](https://www.printables.com/model/1067938-dynavap-induction-heater-box-with-pwm)
-- Faixa: R$ 0–40
-- **Pegar:** frestas de ar nos dissipadores do ZVS
+- [ ] Impresso (pack v1)
+- **STL oficial:** [lisa](caixa-3d/print/v1-lisa/), [relevo](caixa-3d/print/v1/) ou [cavas](caixa-3d/print/v1-cavas/) — [guia](caixa-3d/README.md)
+- Faixa: R$ 0–40 (PETG)
+- **Pegar:** frestas de ar nos dissipadores do ZVS (já no STL)
 
 ### 19. (Opcional) Fio esmaltado 16 AWG
 

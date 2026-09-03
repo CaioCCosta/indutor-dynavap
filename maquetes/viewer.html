@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Indutor Dynavap v1 — Maquete 3D v3</title>
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:system-ui,-apple-system,Segoe UI,sans-serif;background:#1a202c;color:#e2e8f0;overflow:hidden;height:100vh;display:flex}
+    #canvas-wrap{flex:1;position:relative;min-height:0;overflow:hidden}
+    #canvas-wrap canvas{position:absolute;inset:0;width:100%;height:100%;display:block;touch-action:none;cursor:grab;outline:none}
+    #canvas-wrap canvas:active{cursor:grabbing}
+    #panel{width:310px;min-width:310px;background:#2d3748;border-left:1px solid #4a5568;padding:16px;overflow-y:auto;font-size:13px;line-height:1.45}
+    h1{font-size:15px;font-weight:600;margin-bottom:4px}
+    .subtitle{color:#a0aec0;font-size:11px;margin-bottom:14px}
+    h2{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:#718096;margin:12px 0 6px}
+    label{display:flex;align-items:center;gap:8px;margin:5px 0;cursor:pointer;font-size:12px}
+    input[type=range]{width:100%;margin:4px 0 8px;accent-color:#63b3ed}
+    .step-info{background:#1a202c;border-radius:6px;padding:10px;margin-bottom:12px}
+    .step-num{font-size:24px;font-weight:700;color:#63b3ed}
+    .step-title{font-weight:600;margin-top:2px;font-size:13px}
+    .step-desc{color:#a0aec0;font-size:11px;margin-top:4px;line-height:1.4}
+    .legend{display:flex;flex-direction:column;gap:3px}
+    .legend-item{display:flex;align-items:center;gap:7px;font-size:11px}
+    .swatch{width:11px;height:11px;border-radius:2px;flex-shrink:0}
+    #hint{position:absolute;bottom:12px;left:12px;background:rgba(26,32,44,.85);padding:6px 10px;border-radius:4px;font-size:11px;color:#718096;pointer-events:none}
+    #dim-badge{position:absolute;top:12px;left:12px;background:rgba(26,32,44,.9);padding:5px 9px;border-radius:4px;font-size:11px;color:#63b3ed;pointer-events:none;font-family:monospace}
+    a{color:#63b3ed}
+    .btn-row{display:flex;gap:6px;margin-top:8px}
+    button{flex:1;padding:6px 8px;border:1px solid #4a5568;background:#1a202c;color:#e2e8f0;border-radius:4px;cursor:pointer;font-size:12px}
+    button:hover{background:#4a5568}
+    .tag{display:inline-block;background:#2b6cb0;color:#bee3f8;font-size:10px;padding:1px 5px;border-radius:3px;margin-left:4px;vertical-align:middle}
+    .therm{background:#9b2c2c;color:#fed7d7;font-size:10px;padding:2px 6px;border-radius:3px;margin-top:8px;line-height:1.6}
+  </style>
+</head>
+<body>
+<div id="canvas-wrap">
+  <div id="dim-badge">92 × 58 × 65 mm · v3.2 · tubo 16×42 + cama 24×24 + ímã</div>
+  <div id="hint">Arraste = girar · Scroll = zoom · Botão direito = pan</div>
+</div>
+<aside id="panel">
+  <h1>Indutor Dynavap v1 <span class="tag">v3.2</span></h1>
+  <p class="subtitle">v3.2 — tubo 16×100 cortado + cama 24×24 + ímã Ø12×3</p>
+
+  <div class="step-info">
+    <div class="step-num" id="step-num">1</div>
+    <div class="step-title" id="step-title">Caixa vazia</div>
+    <div class="step-desc" id="step-desc">92×58×50mm PETG/ASA</div>
+  </div>
+
+  <h2>Passo de montagem</h2>
+  <input type="range" id="step-slider" min="1" max="10" value="1" step="1">
+  <div class="btn-row">
+    <button id="btn-prev">◀ Anterior</button>
+    <button id="btn-next">Próximo ▶</button>
+  </div>
+
+  <h2>Visualização</h2>
+  <label><input type="checkbox" id="chk-explode"> Explodido</label>
+  <label><input type="checkbox" id="chk-cut"> Corte lateral (X=0)</label>
+  <label><input type="checkbox" id="chk-labels" checked> Labels</label>
+  <label><input type="checkbox" id="chk-power" checked> Fiação 12V</label>
+  <label><input type="checkbox" id="chk-signal"> Fiação sinal</label>
+  <label><input type="checkbox" id="chk-wireframe"> Wireframe caixa</label>
+
+  <h2>🔥 Segurança Térmica</h2>
+  <div class="therm">
+    Material: PETG mín. / ASA ideal<br>
+    Ventilação: 4 slots 10×4mm = 160mm²<br>
+    Gap ZVS↔parede: ≥3mm<br>
+    Timeout firmware: 60s<br>
+    TMP36 cutoff: 60°C<br>
+    Tubo: vidro borossilicato<br>
+    O-ring: silicone (resiste 200°C)
+  </div>
+
+  <h2>Legenda</h2>
+  <div class="legend" id="legend"></div>
+
+  <p style="margin-top:14px;font-size:11px;color:#718096">
+    Dados: <a href="dimensions.json">dimensions.json</a> v3.2<br>
+    <a href="MONTAGEM.md">MONTAGEM.md</a> · <a href="../caixa-3d/README.md">caixa-3d STL</a>
+  </p>
+</aside>
+
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/build/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+<script>
+(function(){
+'use strict';
+
+if (typeof THREE === 'undefined') {
+  document.body.innerHTML = '<p style="padding:2rem;color:#fc8181">Erro: Three.js não carregou. Abra via servidor local (Live Server) ou verifique a conexão.</p>';
+  return;
+}
+
+/* ── Load dims from external JSON embedded inline ── */
+const DIMS = {
+  box: {
+    body: { w:92, h:65, d:58, wall:2.5, color:"#4a5568", label:"Caixa 92×58×65mm", step:1 },
+    lid:  { w:92, h:8,  d:58, color:"#718096", label:"Tampa 92×58×8mm + ímã", step:9 }
+  },
+  components: [
+    { id:"zvs", label:"ZVS 120W (55×37×38mm)", type:"box", step:5, color:"#9b2c2c", pos:[-12, 24, -3], size:[55, 38, 37], explode:[-25, 20, -15] },
+    { id:"mosfet", label:"XY-MOS (34×17×12mm)", type:"box", step:3, color:"#2b6cb0", pos:[-20, 10, 18], size:[34, 12, 17], explode:[-40, 5, 30] },
+    { id:"nano", label:"Nano (43×18×11mm)", type:"box", step:4, color:"#38a169", pos:[-12, 52, -3], size:[43, 7, 18], explode:[-40, 60, -20] },
+    { id:"fuse_holder", label:"Fusível 5×20", type:"box", step:2, color:"#c05621", pos:[20, 10, -20], size:[25, 12, 12], explode:[35, 5, -35] },
+    { id:"stopper", label:"Cama cerâmica 24×24mm", type:"cylinder", step:8, color:"#f7fafc", pos:[28, 14.5, 0], radius:12, height:24, explode:[50, 5, 15] },
+    { id:"tube", label:"Tubo ensaio 16×42 (de 16×100)", type:"glass", step:7, color:"#7ec8e3", pos:[28, 47.5, 0], radius:8, inner:7, height:42, closedBottom:true, explode:[45, 40, 15] },
+    { id:"coil", label:"Bobina (ID16 OD22)", type:"torus", step:7, color:"#b7791f", pos:[28, 48, 0], radius:9.5, tube:2.5, explode:[45, 55, 15] },
+    { id:"coil_top", label:"Bobina (espiras sup.)", type:"torus", step:7, color:"#b7791f", pos:[28, 56, 0], radius:9.5, tube:2.5, explode:[45, 62, 15] },
+    { id:"oring", label:"O-ring 15×3mm", type:"torus", step:7, color:"#2d3748", pos:[28, 66, 0], radius:7.5, tube:1.5, explode:[45, 72, 15] },
+    { id:"magnet", label:"Ímã descanso Ø12×3", type:"cylinder", step:9, color:"#4a5568", pos:[-14, 71.5, 0], radius:6, height:3, explode:[-30, 85, 10] },
+    { id:"jack", label:"Jack P4 DC-022", type:"cylinder", step:2, color:"#2d3748", pos:[0, 22, -29], radius:4.1, height:14, rot:[90, 0, 0], explode:[0, 5, -45] },
+    { id:"fuse_panel", label:"Porta-fusível 5×20", type:"cylinder", step:2, color:"#c05621", pos:[22, 22, -29], radius:6.6, height:16, rot:[90, 0, 0], explode:[35, 5, -45] },
+    { id:"rocker", label:"Gangorra Ø20", type:"cylinder", step:2, color:"#222831", pos:[-32, 18, 29], radius:10.1, height:12, rot:[90, 0, 0], explode:[-40, 12, 42] },
+    { id:"button", label:"Botão 19mm", type:"cylinder", step:6, color:"#1a202c", pos:[12, 35, 29], radius:9.6, height:15, rot:[90, 0, 0], explode:[12, 38, 42] },
+    { id:"button_head", label:"Cabeça botão", type:"cylinder", step:6, color:"#e53e3e", pos:[12, 35, 35], radius:9.6, height:4, rot:[90, 0, 0], explode:[12, 38, 50] },
+    { id:"pot", label:"Pot B10K", type:"cylinder", step:6, color:"#718096", pos:[-12, 42, 29], radius:8, height:13, rot:[90, 0, 0], explode:[-12, 45, 42] },
+    { id:"pot_shaft", label:"Eixo pot", type:"cylinder", step:6, color:"#a0aec0", pos:[-12, 42, 38], radius:3, height:15, rot:[90, 0, 0], explode:[-12, 45, 52] },
+    { id:"led_status", label:"LED D5", type:"cylinder", step:6, color:"#48bb78", pos:[28, 48, 29], radius:2.5, height:8, rot:[90, 0, 0], explode:[28, 50, 42] },
+    { id:"led_chamber", label:"LED D6", type:"cylinder", step:6, color:"#fefcbf", pos:[38, 48, 29], radius:2.5, height:8, rot:[90, 0, 0], explode:[38, 50, 42] },
+    { id:"tmp36", label:"TMP36", type:"box", step:5, color:"#d69e2e", pos:[-5, 48, -10], size:[4, 5, 3], explode:[-5, 60, -10] },
+    { id:"dynavap_cap", label:"Cap M7 (Ø10×27mm)", type:"cylinder", step:10, color:"#c0c0c0", pos:[28, 42, 0], radius:5, height:27, explode:[45, 55, 15] },
+    { id:"dynavap_body", label:"M7 corpo+boca (Ø10×65mm)", type:"cylinder", step:10, color:"#909090", pos:[28, 88, 0], radius:5, height:65, explode:[45, 105, 15] }
+  ],
+  wires: {
+    power: [
+      { from:[6, 22, -29], to:[20, 14, -20], color:"#e53e3e", step:2 },
+      { from:[20, 14, -20], to:[-34, 18, 20], color:"#e53e3e", step:2 },
+      { from:[-34, 22, 20], to:[-20, 14, 18], color:"#e53e3e", step:3 },
+      { from:[-20, 14, 18], to:[-12, 10, -3], color:"#e53e3e", step:3 },
+      { from:[-6, 22, -29], to:[-12, 6, -3], color:"#1a202c", step:2 }
+    ],
+    signal: [
+      { from:[-12, 54, -3], to:[-20, 14, 18], color:"#4299e1", step:4 },
+      { from:[-12, 54, 0], to:[12, 28, 29], color:"#9f7aea", step:6 },
+      { from:[-12, 54, -6], to:[-5, 48, -10], color:"#ed8936", step:5 },
+      { from:[-12, 54, -9], to:[-12, 35, 29], color:"#63b3ed", step:6 }
+    ]
+  },
+  steps: [
+    { n:1,  title:"Caixa vazia",     desc:"92×58×65mm. STL em caixa-3d/stl/." },
+    { n:2,  title:"Trilha 12V",     desc:"Jack → fusível → rocker." },
+    { n:3,  title:"XY-MOS",     desc:"34×17×12mm na base." },
+    { n:4,  title:"Arduino Nano",     desc:"Acima do ZVS." },
+    { n:5,  title:"ZVS + TMP36",     desc:"TMP36 no dissipador." },
+    { n:6,  title:"Painel frontal",     desc:"Botão, pot, rocker, LEDs." },
+    { n:7,  title:"Bobina + tubo",     desc:"16×100 → cortar 42mm com fundo. Bobina + O-ring." },
+    { n:8,  title:"Cama 24×24",     desc:"Cerâmica SOB o fundo. Cap para no vidro." },
+    { n:9,  title:"Tampa + ímã",     desc:"Collarinho Ø16. Colar ímã Ø12×3 no topo esquerdo." },
+    { n:10, title:"Pronto",     desc:"Cap no fundo/bobina. Descanso no ímã. Clique 5–8s." }
+  ]
+};
+
+const state = { step:1, explode:false, explodeAnimating:false, cut:false, labels:true, powerWires:true, signalWires:false, wireframe:false };
+const us = new URLSearchParams(location.search).get('step');
+if(us) state.step = Math.min(10, Math.max(1, +us||1));
+
+function showViewerError(msg) {
+  const wrap = document.getElementById('canvas-wrap');
+  wrap.innerHTML = '<div style="padding:24px;color:#fc8181;font:14px system-ui,sans-serif;line-height:1.5">' +
+    '<strong>Erro ao carregar o viewer 3D</strong><br>' + msg + '</div>';
+}
+
+function createFallbackOrbit(camera, domElement, target) {
+  const orbit = {
+    target: target.clone(),
+    radius: 190,
+    theta: Math.PI / 4,
+    phi: Math.PI / 3,
+    minDistance: 55,
+    maxDistance: 380,
+    isDragging: false,
+    isPanning: false,
+    lastX: 0,
+    lastY: 0
+  };
+
+  function apply() {
+    const sinPhi = Math.sin(orbit.phi);
+    camera.position.set(
+      orbit.target.x + orbit.radius * sinPhi * Math.sin(orbit.theta),
+      orbit.target.y + orbit.radius * Math.cos(orbit.phi),
+      orbit.target.z + orbit.radius * sinPhi * Math.cos(orbit.theta)
+    );
+    camera.lookAt(orbit.target);
+  }
+
+  domElement.addEventListener('contextmenu', (e) => e.preventDefault());
+  domElement.addEventListener('mousedown', (e) => {
+    orbit.isDragging = e.button === 0;
+    orbit.isPanning = e.button === 2;
+    orbit.lastX = e.clientX;
+    orbit.lastY = e.clientY;
+  });
+  window.addEventListener('mouseup', () => {
+    orbit.isDragging = false;
+    orbit.isPanning = false;
+  });
+  window.addEventListener('mousemove', (e) => {
+    if (!orbit.isDragging && !orbit.isPanning) return;
+    const dx = e.clientX - orbit.lastX;
+    const dy = e.clientY - orbit.lastY;
+    orbit.lastX = e.clientX;
+    orbit.lastY = e.clientY;
+    if (orbit.isDragging) {
+      orbit.theta -= dx * 0.008;
+      orbit.phi = Math.max(0.12, Math.min(Math.PI - 0.12, orbit.phi + dy * 0.008));
+    } else if (orbit.isPanning) {
+      const pan = new THREE.Vector3(-dx * 0.12, dy * 0.12, 0);
+      pan.applyQuaternion(camera.quaternion);
+      orbit.target.add(pan);
+    }
+    apply();
+  });
+  domElement.addEventListener('wheel', (e) => {
+    e.preventDefault();
+    orbit.radius = Math.max(orbit.minDistance, Math.min(orbit.maxDistance, orbit.radius + e.deltaY * 0.15));
+    apply();
+  }, { passive: false });
+
+  apply();
+  return {
+    target: orbit.target,
+    update() {},
+    updatePivot(v) { orbit.target.copy(v); apply(); }
+  };
+}
+
+try {
+
+/* ── Renderer ── */
+const wrap = document.getElementById('canvas-wrap');
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0x1a202c);
+
+const cam = new THREE.PerspectiveCamera(42, 1, 0.5, 2000);
+/* Orbit target = centro da caixa fechada (corpo+tampa), leve bias X p/ câmara */
+function modelPivot() {
+  const b = DIMS.box.body, l = DIMS.box.lid;
+  return new THREE.Vector3(10, (b.h + l.h) / 2, 0); // ~ (10, 36.5, 0) em v3.1
+}
+const pivot = modelPivot();
+cam.position.set(pivot.x + 150, pivot.y + 90, pivot.z + 150);
+
+const R = new THREE.WebGLRenderer({ antialias: true });
+R.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+R.localClippingEnabled = true;
+wrap.appendChild(R.domElement);
+
+function resizeRenderer() {
+  const w = Math.max(wrap.clientWidth, 1);
+  const h = Math.max(wrap.clientHeight, 1);
+  R.setSize(w, h, false);
+  cam.aspect = w / h;
+  cam.updateProjectionMatrix();
+}
+
+let ctrl;
+if (typeof THREE.OrbitControls === 'function') {
+  ctrl = new THREE.OrbitControls(cam, R.domElement);
+  ctrl.target.copy(pivot);
+  ctrl.enableDamping = true;
+  ctrl.dampingFactor = 0.08;
+  ctrl.rotateSpeed = 0.65;
+  ctrl.zoomSpeed = 1.0;
+  ctrl.panSpeed = 0.8;
+  ctrl.screenSpacePanning = true;
+  ctrl.minDistance = 55;
+  ctrl.maxDistance = 380;
+  ctrl.maxPolarAngle = Math.PI * 0.92;
+  ctrl.mouseButtons = {
+    LEFT: THREE.MOUSE.ROTATE,
+    MIDDLE: THREE.MOUSE.DOLLY,
+    RIGHT: THREE.MOUSE.PAN
+  };
+  ctrl.update();
+} else {
+  ctrl = createFallbackOrbit(cam, R.domElement, pivot);
+}
+
+resizeRenderer();
+
+scene.add(new THREE.AmbientLight(0xffffff,.5));
+const sun=new THREE.DirectionalLight(0xffffff,.75); sun.position.set(80,140,70); scene.add(sun);
+scene.add(new THREE.DirectionalLight(0xffffff,.3)).position.set(-60,30,-80);
+
+scene.add(new THREE.GridHelper(200,20,0x374151,0x252d3a));
+
+const clipP = new THREE.Plane(new THREE.Vector3(1,0,0),0);
+const groups = {};
+const sprites = [];
+const wireG = {power:new THREE.Group(), signal:new THREE.Group()};
+scene.add(wireG.power, wireG.signal);
+let bodyMat = null;
+
+function mat(hex,op,clip){
+  const m=new THREE.MeshStandardMaterial({color:new THREE.Color(hex),transparent:op<.99,opacity:op,side:THREE.DoubleSide,metalness:.15,roughness:.65});
+  if(clip) m.clippingPlanes=[clipP];
+  return m;
+}
+
+const pivotCenter = new THREE.Vector3();
+
+/** Alvo de órbita estável: centro da caixa fechada — ignora Dynavap/explodido. */
+function updatePivot(snap) {
+  pivotCenter.copy(modelPivot());
+  if (ctrl.target && ctrl.target.copy) {
+    if (snap) ctrl.target.copy(pivotCenter);
+    else ctrl.target.lerp(pivotCenter, 0.25);
+  } else if (ctrl.updatePivot) {
+    ctrl.updatePivot(pivotCenter);
+  }
+}
+
+/* ── Box body ── */
+function buildBox(){
+  const b=DIMS.box.body, g=new THREE.Group();
+  g.name='box_body';
+  g.userData={step:b.step, basePos:new THREE.Vector3(0,b.h/2,0), explodeV:new THREE.Vector3(0,0,0)};
+
+  const outer=new THREE.Mesh(new THREE.BoxGeometry(b.w,b.h,b.d), mat(b.color,.20,true));
+  bodyMat=outer.material;
+  g.add(outer);
+
+  const iw=b.w-b.wall*2, ih=b.h-b.wall, id=b.d-b.wall*2;
+  const inner=new THREE.Mesh(new THREE.BoxGeometry(iw,ih,id), mat(b.color,.06,true));
+  inner.position.y=-b.wall/2; g.add(inner);
+
+  // Vent slots (rear)
+  for(let i=0;i<4;i++){
+    const s=new THREE.Mesh(new THREE.BoxGeometry(10,4,1), mat('#111827',1,false));
+    s.position.set(-15+i*10, -b.h/2+12, -b.d/2+.4); g.add(s);
+  }
+
+  // Top hole for tube (offset to right side X=28)
+  const th=new THREE.Mesh(new THREE.CylinderGeometry(8.5,8.5,b.wall+2,24), mat('#111827',1,false));
+  th.position.set(28,b.h/2,0); g.add(th);
+
+  // Panel holes (front Z=d/2) — Y absolutos alinhados aos componentes v3.1
+  [{x:-33,y:18,w:15,h:21},{x:0,y:35,r:9.5},{x:-25,y:40,r:8},{x:22,y:48,r:2.5},{x:33,y:48,r:2.5}].forEach(h=>{
+    let m2;
+    if(h.r){
+      m2=new THREE.Mesh(new THREE.CylinderGeometry(h.r,h.r,b.wall+2,20), mat('#111827',1,false));
+      m2.rotation.x=Math.PI/2;
+    } else {
+      m2=new THREE.Mesh(new THREE.BoxGeometry(h.w,h.h,b.wall+2), mat('#111827',1,false));
+    }
+    m2.position.set(h.x, h.y-b.h/2, b.d/2); g.add(m2);
+  });
+
+  // Jack hole (rear)
+  const jh=new THREE.Mesh(new THREE.CylinderGeometry(5.5,5.5,b.wall+2,16), mat('#111827',1,false));
+  jh.rotation.x=Math.PI/2; jh.position.set(0,22-b.h/2,-b.d/2); g.add(jh);
+
+  g.position.copy(g.userData.basePos);
+  scene.add(g); groups['box_body']=g;
+  addLabel(b.label, g, b.color);
+}
+
+/* ── Lid ── */
+function buildLid(){
+  const l=DIMS.box.lid, b=DIMS.box.body, g=new THREE.Group();
+  g.name='box_lid';
+  g.userData={step:l.step, basePos:new THREE.Vector3(0,b.h+l.h/2,0), explodeV:new THREE.Vector3(0,30,0)};
+
+  g.add(new THREE.Mesh(new THREE.BoxGeometry(l.w,l.h,l.d), mat(l.color,.45,true)));
+
+  // Tube hole
+  g.add(new THREE.Mesh(new THREE.CylinderGeometry(8.5,8.5,l.h+2,24), mat('#111827',1,false)));
+  g.children[1].position.set(28,0,0);
+
+  // Collarinho (OD22 h5)
+  const co=new THREE.Mesh(new THREE.CylinderGeometry(11,11,5,24), mat('#9ca3af',.9,false));
+  co.position.set(28,l.h/2+2.5,0); g.add(co);
+  const ci=new THREE.Mesh(new THREE.CylinderGeometry(8.5,8.5,5.2,24), mat('#111827',1,false));
+  ci.position.set(28,l.h/2+2.5,0); g.add(ci);
+
+  // Cavidade do ímã (topo esquerdo) — visualização do pocket Ø12.6×3.2
+  const pocket = new THREE.Mesh(
+    new THREE.CylinderGeometry(6.3, 6.3, 3.2, 24),
+    mat('#111827', 0.95, false)
+  );
+  pocket.position.set(-25, l.h/2 - 1.6, 0);
+  g.add(pocket);
+
+  g.position.copy(g.userData.basePos);
+  scene.add(g); groups['box_lid']=g;
+  addLabel(l.label, g, l.color);
+}
+
+/* ── Components ── */
+function buildComp(c){
+  const g=new THREE.Group(); g.name=c.id;
+  const ex=c.explode||[0,0,0];
+  g.userData={step:c.step, basePos:new THREE.Vector3(c.pos[0],c.pos[1],c.pos[2]), explodeV:new THREE.Vector3(ex[0],ex[1],ex[2])};
+
+  const op=c.opacity!==undefined?c.opacity:1;
+
+  if(c.type==='glass'){
+    const outerR = c.radius;
+    const innerR = c.inner != null ? c.inner : (c.radius - 1);
+    const h = c.height;
+    let glassMat;
+    try {
+      glassMat = new THREE.MeshPhysicalMaterial({
+        color: new THREE.Color(c.color),
+        transparent: true,
+        opacity: 0.55,
+        roughness: 0.08,
+        metalness: 0.0,
+        transmission: 0.72,
+        thickness: 1.2,
+        ior: 1.47,
+        side: THREE.DoubleSide,
+        depthWrite: false
+      });
+    } catch (e) {
+      glassMat = new THREE.MeshStandardMaterial({
+        color: new THREE.Color(c.color),
+        transparent: true,
+        opacity: 0.45,
+        roughness: 0.12,
+        metalness: 0.05,
+        side: THREE.DoubleSide,
+        depthWrite: false
+      });
+    }
+    if (glassMat.clippingPlanes !== undefined) glassMat.clippingPlanes = [clipP];
+    const wall = new THREE.Mesh(new THREE.CylinderGeometry(outerR, outerR, h, 32, 1, true), glassMat);
+    g.add(wall);
+    const lining = new THREE.Mesh(
+      new THREE.CylinderGeometry(innerR, innerR, h, 32, 1, true),
+      glassMat.clone()
+    );
+    lining.material.side = THREE.BackSide;
+    g.add(lining);
+    const rimMat = new THREE.MeshStandardMaterial({
+      color: 0xdbeafe, roughness: 0.15, metalness: 0.05, transparent: true, opacity: 0.9
+    });
+    rimMat.clippingPlanes = [clipP];
+    const rimTop = new THREE.Mesh(new THREE.RingGeometry(innerR, outerR, 32), rimMat);
+    rimTop.rotation.x = -Math.PI / 2;
+    rimTop.position.y = h / 2;
+    g.add(rimTop);
+    if (c.closedBottom) {
+      const bottom = new THREE.Mesh(
+        new THREE.CircleGeometry(outerR, 32),
+        glassMat.clone()
+      );
+      bottom.rotation.x = Math.PI / 2;
+      bottom.position.y = -h / 2;
+      g.add(bottom);
+      const bottomInner = new THREE.Mesh(
+        new THREE.CircleGeometry(innerR, 32),
+        glassMat.clone()
+      );
+      bottomInner.material.side = THREE.BackSide;
+      bottomInner.rotation.x = -Math.PI / 2;
+      bottomInner.position.y = -h / 2 + 0.4;
+      g.add(bottomInner);
+    } else {
+      const rimBot = rimTop.clone();
+      rimBot.position.y = -h / 2;
+      rimBot.rotation.x = Math.PI / 2;
+      g.add(rimBot);
+    }
+    const edge = new THREE.LineSegments(
+      new THREE.EdgesGeometry(new THREE.CylinderGeometry(outerR, outerR, h, 24, 1, true)),
+      new THREE.LineBasicMaterial({ color: 0x90cdf4, transparent: true, opacity: 0.85 })
+    );
+    g.add(edge);
+  } else {
+    const m2=mat(c.color,op,true);
+    let mesh;
+    if(c.type==='box'){
+      mesh=new THREE.Mesh(new THREE.BoxGeometry(c.size[0],c.size[1],c.size[2]),m2);
+    } else if(c.type==='cylinder'){
+      mesh=new THREE.Mesh(new THREE.CylinderGeometry(c.radius,c.radius,c.height,24),m2);
+      if(c.rot){ mesh.rotation.x=THREE.MathUtils.degToRad(c.rot[0]); mesh.rotation.y=THREE.MathUtils.degToRad(c.rot[1]); mesh.rotation.z=THREE.MathUtils.degToRad(c.rot[2]); }
+    } else if(c.type==='torus'){
+      mesh=new THREE.Mesh(new THREE.TorusGeometry(c.radius,c.tube,14,40),m2);
+      mesh.rotation.x=Math.PI/2;
+    }
+    g.add(mesh);
+  }
+
+  // ZVS extra: heatsink fins
+  if(c.id==='zvs'){
+    const fg=new THREE.BoxGeometry(6,30,35);
+    [-1,1].forEach(s=>{
+      const f=new THREE.Mesh(fg,mat('#6b2020',1,true));
+      f.position.set(s*28,-4,0); g.add(f);
+    });
+  }
+  // Nano: USB stub
+  if(c.id==='nano'){
+    const u=new THREE.Mesh(new THREE.BoxGeometry(8,4,6),mat('#4a5568',1,true));
+    u.position.set(0,0,-c.size[2]/2-3); g.add(u);
+  }
+
+  g.position.copy(g.userData.basePos);
+  scene.add(g); groups[c.id]=g;
+  addLabel(c.label,g,c.color);
+}
+
+/* ── Labels ── */
+function addLabel(text,group,hex){
+  const cv=document.createElement('canvas'); cv.width=320; cv.height=44;
+  const ctx=cv.getContext('2d');
+  ctx.fillStyle='rgba(15,20,30,.88)'; ctx.fillRect(0,0,cv.width,cv.height);
+  ctx.fillStyle=hex||'#e2e8f0'; ctx.font='bold 15px system-ui,sans-serif'; ctx.fillText(text,8,28);
+  const sp=new THREE.Sprite(new THREE.SpriteMaterial({map:new THREE.CanvasTexture(cv),depthTest:false}));
+  sp.scale.set(28,3.9,1); sp.userData.pg=group; sprites.push(sp); scene.add(sp);
+}
+
+/* ── Wires ── */
+function buildWires(){
+  function w(d,grp){
+    const geo=new THREE.TubeGeometry(new THREE.LineCurve3(new THREE.Vector3(...d.from),new THREE.Vector3(...d.to)),1,.9,6,false);
+    const m2=new THREE.Mesh(geo,mat(d.color,1,false)); m2.userData.step=d.step; grp.add(m2);
+  }
+  (DIMS.wires.power||[]).forEach(d=>w(d,wireG.power));
+  (DIMS.wires.signal||[]).forEach(d=>w(d,wireG.signal));
+}
+
+/* ── Legend ── */
+function buildLegend(){
+  const el=document.getElementById('legend');
+  const items=[{color:DIMS.box.body.color,label:'Caixa PETG/ASA'},{color:DIMS.box.lid.color,label:'Tampa'},...DIMS.components.map(c=>({color:c.color,label:c.label}))];
+  el.innerHTML=items.map(i=>`<div class="legend-item"><span class="swatch" style="background:${i.color}"></span>${i.label}</div>`).join('');
+}
+
+/* ── Explode ── */
+function lerpExplode(t){
+  if (!state.explode && !state.explodeAnimating) return;
+  let stillMoving = false;
+  Object.values(groups).forEach(g=>{
+    const bp=g.userData.basePos, ev=g.userData.explodeV;
+    const tgt=state.explode?new THREE.Vector3(bp.x+ev.x,bp.y+ev.y,bp.z+ev.z):bp.clone();
+    g.position.lerp(tgt,t);
+    if (g.position.distanceTo(tgt) > 0.05) stillMoving = true;
+  });
+  state.explodeAnimating = stillMoving;
+}
+
+/* ── Visibility ── */
+function updateVis(){
+  Object.values(groups).forEach(g=>{ g.visible=(g.userData.step<=state.step); });
+  [wireG.power,wireG.signal].forEach((wg,i)=>{
+    wg.visible=(i===0?state.powerWires:state.signalWires);
+    wg.children.forEach(c=>{ c.visible=wg.visible&&c.userData.step<=state.step; });
+  });
+  if(bodyMat) bodyMat.wireframe=state.wireframe;
+  clipP.constant=state.cut?28:9999;
+  sprites.forEach(s=>{
+    const g=s.userData.pg;
+    s.visible=state.labels&&g&&g.visible;
+    if(s.visible) s.position.set(g.position.x,g.position.y+12,g.position.z);
+  });
+}
+
+/* ── Step UI ── */
+function setStep(n){
+  state.step=Math.min(10,Math.max(1,n));
+  const s=DIMS.steps.find(x=>x.n===state.step)||DIMS.steps[0];
+  document.getElementById('step-num').textContent=s.n;
+  document.getElementById('step-title').textContent=s.title;
+  document.getElementById('step-desc').textContent=s.desc;
+  document.getElementById('step-slider').value=state.step;
+  history.replaceState(null,'','?step='+state.step);
+  updateVis();
+  updatePivot(true);
+}
+
+/* ── Controls ── */
+document.getElementById('step-slider').oninput=e=>setStep(+e.target.value);
+document.getElementById('btn-prev').onclick=()=>setStep(state.step-1);
+document.getElementById('btn-next').onclick=()=>setStep(state.step+1);
+document.getElementById('chk-explode').onchange=e=>{ state.explode=e.target.checked; state.explodeAnimating=true; };
+document.getElementById('chk-cut').onchange=e=>{state.cut=e.target.checked;updateVis()};
+document.getElementById('chk-labels').onchange=e=>{state.labels=e.target.checked;updateVis()};
+document.getElementById('chk-power').onchange=e=>{state.powerWires=e.target.checked;updateVis()};
+document.getElementById('chk-signal').onchange=e=>{state.signalWires=e.target.checked;updateVis()};
+document.getElementById('chk-wireframe').onchange=e=>{state.wireframe=e.target.checked;updateVis()};
+
+/* ── Render ── */
+buildBox(); buildLid();
+DIMS.components.forEach(buildComp);
+buildWires(); buildLegend(); setStep(state.step);
+updatePivot(true);
+requestAnimationFrame(resizeRenderer);
+
+(function anim(){
+  requestAnimationFrame(anim);
+  lerpExplode(0.12);
+  updateVis();
+  if (ctrl && ctrl.update) ctrl.update();
+  R.render(scene, cam);
+})();
+window.addEventListener('resize', resizeRenderer);
+
+} catch (err) {
+  console.error(err);
+  showViewerError(err.message + '<br><br>Abra via Live Server se estiver usando file://');
+}
+
+})();
+</script>
+</body>
+</html>
