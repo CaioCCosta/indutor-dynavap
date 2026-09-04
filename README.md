@@ -13,7 +13,7 @@ Este kit junta o que Reddit (`r/inductionheaters`), FuckCombustion, VapOven, Thi
 | [**Lista híbrida**](LISTA_COMPRAS_HIBRIDA.md) | **Melhor custo total — modelo, preço e frete por pedido** |
 | [Firmware](firmware/indutor_dynavap.ino) | Botão, timeout 60 s, pulso lento, corte a 60 °C |
 | [Afinação e segurança](AFINACAO_E_SEGURANCA.md) | Bobina 16 mm, alvo 60–70 W, checklist |
-| [**Maquetes 3D**](maquetes/viewer.html) | Visualizador interativo e [montagem](maquetes/MONTAGEM.md) |
+| [**Maquetes 3D**](maquetes/viewer.html) | Visualizador precisão v1.1 · [layout interno](maquetes/LAYOUT_INTERNO.md) · [montagem](maquetes/MONTAGEM.md) |
 
 ---
 

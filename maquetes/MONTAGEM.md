@@ -2,7 +2,9 @@
 
 Guia passo a passo alinhado ao [visualizador 3D](viewer.html). Cada passo abre no viewer com `viewer.html?step=N`.
 
-Referências: [BOM e fiação](../BOM_E_FIACAO.md) · [Afinação](../AFINACAO_E_SEGURANCA.md) · [Caixa 3D](../caixa-3d/README.md)
+Referências: [BOM e fiação](../BOM_E_FIACAO.md) · [Afinação](../AFINACAO_E_SEGURANCA.md) · [Caixa 3D](../caixa-3d/README.md) · [Layout interno](LAYOUT_INTERNO.md)
+
+**Maquete v1.1:** abra o viewer via servidor local (`python -m http.server` em `maquetes/`) para o `fetch` de [`dimensions.json`](dimensions.json).
 
 ---
 
@@ -45,12 +47,12 @@ Referências: [BOM e fiação](../BOM_E_FIACAO.md) · [Afinação](../AFINACAO_E
 Ordem no positivo (vermelho, 16 AWG):
 
 ```
-Fonte + → Jack fêmea → Rocker → Fusível 10A → barra 12V_SW
+Fonte + → Jack fêmea → Fusível 10A → Rocker → barra 12V_SW
 ```
 
 1. Instale o **jack P4** na traseira (solda ou parafuso).
-2. **Rocker KCD1** no painel — comuta o positivo geral.
-3. **Fusível 10A** + suporte 5×20 logo após o rocker, o mais perto possível da entrada.
+2. **Fusível 10A** + suporte 5×20 no painel traseiro (só o porta-fusível de painel — sem bloco interno duplicado).
+3. **Rocker KCD1** no painel frontal — comuta o positivo geral.
 4. Negativo (preto): barra comum GND para fonte, MOSFET, ZVS, Nano.
 
 | Check | OK |
@@ -61,128 +63,90 @@ Fonte + → Jack fêmea → Rocker → Fusível 10A → barra 12V_SW
 
 ---
 
-## Passo 3 — MOSFET
+## Passo 3 — ZVS + TMP36
 
 **Viewer:** [passo 3](viewer.html?step=3)
+
+1. Assente o **ZVS** (envelope ~55×37×20) no **piso**, centro aproximado **X=−10**, levemente à traseira — gap ≥3 mm das paredes, ≥2 mm do tubo (X=28).
+2. TMP36 com pasta térmica na face do dissipador voltada aos **vents** (−Z).
+3. Não encoste o dissipador no PETG.
+
+| Check | OK |
+|---|---|
+| Gap ZVS↔parede ≥3 mm | [ ] |
+| Fins alinhados ao fluxo dos vents | [ ] |
+| Serial `Ts=` sobe com o ZVS ligado (passo firmware) | [ ] |
+
+---
+
+## Passo 4 — MOSFET
+
+**Viewer:** [passo 4](viewer.html?step=4)
 
 O **XY-MOS 15 A** comuta o positivo entre a barra 12 V e o ZVS.
 
 | Borne | Liga em |
 |---|---|
-| V+ in | 12 V depois do fusível |
+| V+ in | 12 V depois do fusível / rocker |
 | V− in | GND |
 | V+ out | ZVS + |
-| TRIG | Nano D3 (passo 4) |
-| V− out | GND (ou ZVS − direto na fonte) |
+| TRIG | Nano D3 (passo 5) |
+| V− out | GND (ou ZVS −) |
 
-1. Parafuse o MOSFET na base da caixa (ou use fita kapton provisória).
-2. Fios de potência **curtos** — loop fonte → fusível → MOSFET → ZVS.
-
-| Check | OK |
-|---|---|
-| Sem ZVS: D3 HIGH → 12 V em V+ out (teste no passo 4) | [ ] |
-| Nenhum fio de potência passa pelo Arduino | [ ] |
-
----
-
-## Passo 4 — Arduino Nano
-
-**Viewer:** [passo 4](viewer.html?step=4) · Ative **Fiação sinal**.
-
-1. **VIN** → 12 V depois do rocker · **GND** → barra comum.
-2. Grave o [firmware](../firmware/indutor_dynavap.ino) e confirme LED onboard / Serial.
-3. Ligue **D3** ao TRIG do MOSFET.
-4. Reserve jumpers para D2 (botão), A0 (pot), A1 (TMP36), D5/D6 (LEDs).
-
-| Pino | Função |
-|---|---|
-| D2 | Botão → GND (pull-up interno) |
-| D3 | TRIG MOSFET |
-| D5 | LED status + 470 Ω → GND |
-| D6 | LED câmara + 470 Ω → GND |
-| A0 | Pot 10k (5V — A0 — GND) |
-| A1 | TMP36 Vout (passo 5) |
+1. Monte o MOSFET **acima** do ZVS (standoffs ≥2 mm) — não ao lado no piso (Z interno apertado).
+2. Fios de potência **curtos**.
 
 | Check | OK |
 |---|---|
-| Firmware gravado, Serial OK | [ ] |
-| D3 HIGH liga saída do MOSFET | [ ] |
+| Standoff ≥2 mm sobre o ZVS | [ ] |
+| Sem curto mecânico com o Nano | [ ] |
 
 ---
 
-## Passo 5 — ZVS + TMP36
+## Passo 5 — Arduino Nano
 
-**Viewer:** [passo 5](viewer.html?step=5) · Use **Corte lateral** para ver o sensor.
+**Viewer:** [passo 5](viewer.html?step=5)
 
-1. ZVS **−** no GND · ZVS **+** no V+ out do MOSFET.
-2. **Não** ligue a bobina ainda — primeiro teste sem carga.
-3. **TMP36** colado no dissipador do ZVS (pasta térmica ou abraçadeira de nylon + thermal pad).
-   - +Vs → 5 V Nano · Vout → A1 · GND → GND
-4. Primeiro pulso **curto** com botão (ainda sem bobina montada na caixa).
+1. Nano **acima** do MOSFET/ZVS (centro ~Y=46), isolado da parede.
+2. D3 → TRIG do MOSFET; sensor TMP36; botão / pot / LEDs nos furos do painel.
+3. USB: use jumpers ou grave antes de fechar — não há cutout USB na caixa.
 
 | Check | OK |
 |---|---|
-| Fonte não pisca; tensão ≥ 11,5 V | [ ] |
-| TMP36 lê temperatura plausível na Serial | [ ] |
-| Dissipadores com espaço para ar | [ ] |
+| Gap Nano↔tampa ≥3 mm | [ ] |
+| Não toca dissipador do ZVS | [ ] |
 
 ---
 
-## Passo 6 — Painel
+## Passo 6 — Painel frontal
 
 **Viewer:** [passo 6](viewer.html?step=6)
 
-1. **Pot B10K** — eixo 6 mm no furo; extremos em 5 V e GND; cursor em A0.
-2. **Botão 19 mm** — só os contatos SPST (ignore LED interno 12/24 V ou alimente separado).
-3. **LED status (D5)** — verde, 470 Ω para GND.
-4. **LED câmara (D6)** — amarelo/branco, apontando para o tubo, 470 Ω para GND.
-
-| Check | OK |
-|---|---|
-| Botão momentâneo (não trava) | [ ] |
-| Pot gira suave, sem folga no furo | [ ] |
-| LEDs acendem no sketch de teste | [ ] |
+Instale botão Ø19,2, pot bushing Ø7,6, LEDs Ø5,2 nos furos **já impressos** (posições congeladas). LED D6 aponta para o tubo.
 
 ---
 
-## Passo 7 — Bobina + tubo
+## Passo 7 — Câmara (cama + tubo + bobina)
 
 **Viewer:** [passo 7](viewer.html?step=7)
 
-### Método A — Apertar bobina original
-
-1. Tubo de vidro Ø ~16 mm como mandril.
-2. Fechar para ~5 espiras justas — **não corte** o fio.
-3. Soldar bobina na placa ZVS (bornes de plástico derretem).
-
-### Método B — Rebobinar 16 AWG
-
-1. 8–10 espiras no tubo ou no [coil chuck](https://www.printables.com/model/1067938-dynavap-induction-heater-box-with-pwm) do acsdog.
-2. Soldar na placa.
-
-3. Tubo dentro da bobina · **O-ring 15×3** no assento da caixa.
+1. **Cama cerâmica Ø24×8** no piso sob o eixo X=28 (não torre alta).
+2. Tubo ensaio Ø16 cortado ~42 mm, fundo fechado, assentado na cama.
+3. Bobina **ID ≥16 / OD ~22** em volta do vidro (não apertar a ponto de rachar).
+4. O-ring 15×3 no collarinho da tampa.
 
 | Check | OK |
 |---|---|
-| Bobina soldada, isolamento intacto | [ ] |
-| Tubo firme com O-ring | [ ] |
-| Corrente ociosa baixa (bobina no ar, pulso curto) | [ ] |
+| Fundo do tubo na cama | [ ] |
+| Bobina não raspa a parede | [ ] |
 
 ---
 
-## Passo 8 — Cama cerâmica 24×24
+## Passo 8 — Checagem térmica / ventilação
 
 **Viewer:** [passo 8](viewer.html?step=8)
 
-1. Roldana isolador **24×24 mm** sob o **fundo fechado** do tubo (não entra no tubo).
-2. Isola o PETG do vidro quente. O cap para no **vidro**, não na cerâmica.
-3. Profundidade do cap = comprimento cortado do tubo (~42 mm) + posição da bobina.
-
-| Objetivo | Ajuste |
-|---|---|
-| Clique < 3 s | Subir bobina / menos cap no centro / baixar pot |
-| Clique > 12 s | Mais cap na bobina / apertar espiras / subir pot |
-| Marca | Fita no stem na posição boa |
+Vents traseiros livres; tampa **não** hermética. Ver [LAYOUT_INTERNO.md](LAYOUT_INTERNO.md).
 
 ---
 
@@ -190,35 +154,34 @@ O **XY-MOS 15 A** comuta o positivo entre a barra 12 V e o ZVS.
 
 **Viewer:** [passo 9](viewer.html?step=9)
 
-1. Passe o conjunto tubo + bobina pelo furo superior (collarinho Ø22).
-2. Fixe tampa com parafusos **M3** (4 cantos, furos 3,4 mm) — STL em [`caixa-3d/stl/`](../caixa-3d/stl/).
-3. Cole o ímã **Ø12×3** na cavidade do **topo esquerdo** (Super Bonder / epóxi). Preferir diametral.
-4. Confirme ventilação traseira livre — ZVS não pode ficar em caixa fechada.
-
-| Check | OK |
-|---|---|
-| Tampa sem folga excessiva | [ ] |
-| Ar circula nos dissipadores | [ ] |
-| Nada pinça fios ao fechar | [ ] |
+Collarinho Ø22; ímã Ø12×3 colado no pocket **X=−14**. Parafusos M3 nos cantos.
 
 ---
 
-## Passo 10 — Pronto para uso
+## Passo 10 — Pronto
 
-**Viewer:** [passo 10](viewer.html?step=10) · Modo **Montado** + Dynavap M7.
+**Viewer:** [passo 10](viewer.html?step=10)
 
-1. Insira o **Dynavap M7** (cap metálico) no tubo até o fundo de vidro.
-2. Rocker ON → segure botão → conte até o clique (alvo 5–8 s).
-3. Entre sessões, apoie o M7 no **ímã da tampa** (cap no ímã, upright).
-4. Ajuste pot/bobina conforme [AFINACAO_E_SEGURANCA.md](../AFINACAO_E_SEGURANCA.md).
-5. Teste timeout 60 s e corte térmico 60 °C.
+1. Cap no fundo de vidro; M7 ~92 mm; descanso no ímã.
+2. Rocker ON → botão → alvo clique **5–8 s** (~60–70 W).
+3. Confirme timeout 60 s e corte TMP36 60 °C — [AFINACAO_E_SEGURANCA.md](../AFINACAO_E_SEGURANCA.md).
+
+### Pinos Nano (resumo)
+
+| Pino | Função |
+|---|---|
+| D2 | Botão → GND (pull-up) |
+| D3 | TRIG MOSFET |
+| D5 / D6 | LED status / câmara (+ 470 Ω) |
+| A0 | Pot 10k |
+| A1 | TMP36 Vout |
+| VIN / GND | 12 V após rocker / barra comum |
 
 | Check | OK |
 |---|---|
 | Clique em 5–8 s | [ ] |
-| Potência ~60–70 W (5–6 A) | [ ] |
 | Timeout e corte térmico OK | [ ] |
-| Cap sai quente — cuidado ao retirar | [ ] |
+| Ventilação livre ao fechar | [ ] |
 
 ---
 
@@ -226,19 +189,15 @@ O **XY-MOS 15 A** comuta o positivo entre a barra 12 V e o ZVS.
 
 ```mermaid
 flowchart TD
-  P1[Passo 1 Caixa] --> P2[Passo 2 Jack fusivel rocker]
-  P2 --> P3[Passo 3 MOSFET]
-  P3 --> P4[Passo 4 Nano firmware]
-  P4 --> P5[Passo 5 ZVS TMP36]
-  P5 --> P6[Passo 6 Painel]
-  P6 --> P7[Passo 7 Bobina tubo]
-  P7 --> P8[Passo 8 Cama ceramica]
-  P8 --> P9[Passo 9 Tampa + ima]
-  P9 --> P10[Passo 10 Afinação]
+  P1[Passo1_Caixa] --> P2[Passo2_Jack_fusivel_rocker]
+  P2 --> P3[Passo3_ZVS_TMP36]
+  P3 --> P4[Passo4_MOSFET]
+  P4 --> P5[Passo5_Nano]
+  P5 --> P6[Passo6_Painel]
+  P6 --> P7[Passo7_Camara]
+  P7 --> P8[Passo8_Termica]
+  P8 --> P9[Passo9_Tampa]
+  P9 --> P10[Passo10_Afinacao]
 ```
 
----
-
-## Melhorias de layout
-
-Depois de percorrer os 10 passos no viewer, veja [MELHORIAS.md](MELHORIAS.md) para ajustes na caixa antes da impressão final.
+Layout interno: [LAYOUT_INTERNO.md](LAYOUT_INTERNO.md). Pós-montagem: [MELHORIAS.md](MELHORIAS.md).

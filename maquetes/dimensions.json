@@ -1,108 +1,205 @@
 {
   "meta": {
-    "version": "1.0",
+    "version": "1.1",
+    "product_version": "1.0",
     "unit": "mm",
-    "note": "v1 fechada — corpo 92×58×65 + tampa 8; ímã X=-14; packs print/v1-lisa, print/v1 (relevo), print/v1-cavas (cola). Origem (0,0,0)=centro da base. Y=altura. Z=frente(+)/trás(-).",
-    "box_external": "92 × 58 × 65 mm (corpo) + 8mm tampa",
-    "box_internal": "87 × 53 × 60 mm (paredes 2.5mm)",
-    "chamber": {
-      "tube_stock": "16×100 mm ensaio, vidro comum, fundo fechado",
-      "tube_cut_mm": 42,
-      "tube_od_mm": 16,
-      "tube_id_mm": 14,
-      "ceramic_bed": "24×24 mm roldana sob o fundo (não dentro do tubo)",
-      "cap_stop": "fundo de vidro do tubo",
-      "magnet_dock": "Ø12×3 mm no centro da área livre da tampa, X≈-14 (pocket Ø12.6×3.2)",
-      "links": {
-        "tube": "https://shopee.com.br/Tubo-de-Ensaio-Vidro-Comum-sem-Tampa-Borda-UN-Global-Trade-i.219768015.14233682454",
-        "ceramic": "https://shopee.com.br/KIT-4-Roldanas-Isolador-Cerâmico-24-X-24-Mm-Chocadeira-i.536455119.12843383768",
-        "magnet_br": "https://www.polomagnetico.com.br/ima-de-neodimio/disco/ima-de-neodimio-12-x-3-mm-n35",
-        "magnet_vapoven": "https://vapoven.com/product/vapoven-cooling-magnet/"
-      }
+    "precision": "0.1",
+    "note": "Maquete v1.1 precisão — caixa física 92×58×65 CONGELADA (print em andamento). Furos = box_params.scad.",
+    "coordinate_system": {
+      "origin": "(0,0,0) = centro da face inferior EXTERNA da base",
+      "X": "largura; − = esquerda; + = direita (câmara/tubo)",
+      "Y": "altura; 0 = fundo externo; + = cima",
+      "Z": "profundidade; + = frente (painel); − = traseira (vents/jack)"
+    },
+    "box_external": "92.0 × 58.0 × 65.0 (corpo) + tampa 8.0",
+    "box_internal": "87.0 × 53.0 × 60.0 (paredes 2.5; piso 2.5)",
+    "wall_mm": 2.5,
+    "floor_mm": 2.5,
+    "lid_h": 8.0,
+    "inner_bounds": {
+      "X": [-43.5, 43.5],
+      "Y": [2.5, 62.5],
+      "Z": [-26.5, 26.5]
+    },
+    "layout_X": {
+      "x_chamber": 28.0,
+      "electronics_right_max": 16.0,
+      "x_zvs_center": -10.0,
+      "x_magnet": -14.0,
+      "note": "Baia eletrônica X<16; baia câmara eixo X=28. Sem bolsão lateral 19 mm (portátil) — Z interno só 53."
+    },
+    "stack_Y_electronics": {
+      "y_floor_inner": 2.5,
+      "zvs_h": 20.0,
+      "y_zvs_center": 12.5,
+      "y_zvs_top": 22.5,
+      "mosfet_standoff": 2.0,
+      "y_mosfet_center": 30.5,
+      "y_nano_center": 46.0,
+      "nano_h": 11.0,
+      "clearance_nano_to_lid_inner": 5.5,
+      "note": "ZVS no piso; MOSFET empilhado; Nano acima com gap até Y=62.5"
+    },
+    "stack_Y_chamber": {
+      "y_bed_center": 6.5,
+      "bed_h": 8.0,
+      "y_bed_top": 10.5,
+      "tube_h": 42.0,
+      "y_tube_center": 31.5,
+      "y_tube_top": 52.5,
+      "coil_y": [36.0, 42.0, 48.0, 54.0],
+      "y_oring": 66.0
+    },
+    "panel_holes_mm": {
+      "rocker": { "x": -32.0, "y": 18.0, "od": 20.2 },
+      "pot_bushing": { "x": -12.0, "y": 42.0, "od": 7.6 },
+      "button": { "x": 12.0, "y": 35.0, "od": 19.2 },
+      "led_status": { "x": 28.0, "y": 48.0, "od": 5.2 },
+      "led_chamber": { "x": 38.0, "y": 48.0, "od": 5.2 },
+      "jack": { "x": 0.0, "y": 22.0, "od": 8.2 },
+      "fuse": { "x": 22.0, "y": 22.0, "od": 13.2 },
+      "tube_clearance": { "x": 28.0, "od": 17.0 },
+      "magnet_pocket": { "x": -14.0, "od": 12.6, "depth": 3.2 },
+      "source": "caixa-3d/box_params.scad — CONGELADO"
+    },
+    "ventSlots": {
+      "count": 4,
+      "w": 10.0,
+      "h": 4.0,
+      "side": "rear",
+      "y_from_inner_floor": 12.0,
+      "area_mm2": 160.0
     },
     "thermal": {
-      "material": "PETG mínimo, ASA/ABS ideal na região do tubo",
-      "vent_area_mm2": "≥160 (4 slots de 10×4mm traseiros)",
-      "gap_zvs_wall_mm": "≥3",
-      "timeout_firmware_s": 60,
+      "gap_zvs_wall_min": 3.0,
+      "gap_zvs_tube_min": 2.0,
+      "gap_coil_wall_min": 2.0,
+      "gap_nano_lid_min": 3.0,
+      "gap_mosfet_zvs_min": 2.0,
+      "vent_path": "inlet −Z (4×10×4) → fins ZVS → sobe sob tampa (não vedar)",
       "tmp36_cutoff_c": 60,
-      "glass_note": "Vidro comum: sessões 5–8 s; fundo assenta na cerâmica para isolar PETG",
-      "magnet_note": "Neodímio ≤80 °C; cola ciano/epóxi na cavidade"
+      "tmp36_rearm_c": 55,
+      "timeout_firmware_s": 60,
+      "material": "PETG mínimo, ASA/ABS ideal perto do tubo",
+      "glass_note": "Vidro comum ensaio; fundo assenta na cama Ø24×8",
+      "magnet_note": "Neodímio ≤80 °C; cola no pocket"
     },
-    "sources": {
-      "zvs": "55×37×38mm — Electrobes / Ubuy / Mahtab",
-      "mosfet": "34×17×12mm — Sandro's Notes / Electrothinks",
-      "nano": "43.2×17.8×11mm — Arduino official",
-      "cap": "27mm × Ø10mm — Donaulife",
-      "m7": "92mm × Ø10mm — DynaVap",
-      "tube": "Ensaio 16×100 cortado a 42mm, fundo fechado",
-      "ceramic": "Roldana isolador 24×24 mm (chocadeira)",
-      "coil": "ID 16mm, OD ~22mm, ~8 espiras ≈ 20mm — VapOven tuning",
-      "magnet": "Disco Ø12×3 mm (preferir diametral); cavity in box_lid.scad",
-      "stl": "caixa-3d/stl/box_body.stl + box_lid.stl"
-    }
+    "catalog_mm": {
+      "zvs_envelope": { "L": 55.0, "W": 37.0, "H": 20.0, "note": "PCB~55×37 + caps; fins laterais no envelope H" },
+      "mosfet_xymos": { "L": 34.0, "W": 17.0, "H": 12.0 },
+      "nano": { "L": 43.2, "W": 17.8, "H": 11.0 },
+      "tmp36_to92": { "L": 4.0, "W": 3.0, "H": 5.0 },
+      "tube": { "od": 16.0, "id": 14.0, "cut_h": 42.0 },
+      "coil": { "id": 16.0, "od": 22.0, "torus_R": 9.5, "torus_tube": 1.5 },
+      "ceramic_bed": { "od": 24.0, "h": 8.0 },
+      "oring": { "id": 15.0, "cs": 3.0 },
+      "magnet": { "od": 12.0, "h": 3.0 },
+      "collar": { "od": 22.0, "id": 17.0, "h": 5.0 },
+      "dynavap_cap": { "od": 10.0, "h": 27.0 },
+      "dynavap_m7": { "od": 10.0, "h": 92.0 },
+      "jack_dc022": { "hole_od": 8.2, "body_len": 14.0 },
+      "fuse_panel_5x20": { "hole_od": 13.2, "body_len": 16.0 },
+      "rocker_kcd1": { "hole_od": 20.2, "body_len": 12.0 },
+      "button_19": { "hole_od": 19.2, "body_len": 15.0 },
+      "pot_b10k": { "bushing_od": 7.6, "body_od": 16.0, "shaft_od": 6.0 }
+    },
+    "frozen_box": true,
+    "lessons_from_portable": "indutor-dynavap-portatil LAYOUT_COMPACTO: catalog_mm, clearances, ZVS flat, cama Ø24×8, bobina ID16, stack Y MOSFET+Nano"
   },
   "box": {
     "body": {
-      "w": 92, "h": 65, "d": 58, "wall": 2.5,
-      "color": "#4a5568", "label": "Caixa 92×58×65mm", "step": 1
+      "w": 92.0, "h": 65.0, "d": 58.0, "wall": 2.5,
+      "color": "#4a5568", "label": "Caixa 92×58×65", "step": 1
     },
     "lid": {
-      "w": 92, "h": 8, "d": 58,
-      "color": "#718096", "label": "Tampa 92×58×8mm + ímã", "step": 9,
-      "magnetPocket": { "x": -14, "y": 0, "d": 12.6, "depth": 3.2 }
+      "w": 92.0, "h": 8.0, "d": 58.0,
+      "color": "#718096", "label": "Tampa 8 + ímã X=-14", "step": 9,
+      "magnetPocket": { "x": -14.0, "y": 0.0, "d": 12.6, "depth": 3.2 },
+      "collar": { "x": 28.0, "od": 22.0, "id": 17.0, "h": 5.0 }
     },
-    "ventSlots": { "count": 4, "w": 10, "h": 4, "side": "rear", "note": "4×10×4=160mm²" }
+    "ventSlots": { "count": 4, "w": 10.0, "h": 4.0, "side": "rear", "y_from_inner_floor": 12.0 },
+    "panelHoles": {
+      "front": [
+        { "id": "rocker", "x": -32.0, "y": 18.0, "r": 10.1 },
+        { "id": "pot", "x": -12.0, "y": 42.0, "r": 3.8 },
+        { "id": "button", "x": 12.0, "y": 35.0, "r": 9.6 },
+        { "id": "led1", "x": 28.0, "y": 48.0, "r": 2.6 },
+        { "id": "led2", "x": 38.0, "y": 48.0, "r": 2.6 }
+      ],
+      "rear": [
+        { "id": "jack", "x": 0.0, "y": 22.0, "r": 4.1 },
+        { "id": "fuse", "x": 22.0, "y": 22.0, "r": 6.6 }
+      ],
+      "top_tube": { "x": 28.0, "r": 8.5 }
+    }
   },
   "components": [
-    { "id": "zvs", "label": "ZVS 120W (55×37×38mm)", "type": "box", "step": 5, "color": "#9b2c2c", "pos": [-12, 24, -3], "size": [55, 38, 37], "explode": [-25, 20, -15] },
-    { "id": "mosfet", "label": "XY-MOS (34×17×12mm)", "type": "box", "step": 3, "color": "#2b6cb0", "pos": [-20, 10, 18], "size": [34, 12, 17], "explode": [-40, 5, 30] },
-    { "id": "nano", "label": "Nano (43×18×11mm)", "type": "box", "step": 4, "color": "#38a169", "pos": [-12, 52, -3], "size": [43, 7, 18], "explode": [-40, 60, -20] },
-    { "id": "fuse_holder", "label": "Fusível 5×20", "type": "box", "step": 2, "color": "#c05621", "pos": [20, 10, -20], "size": [25, 12, 12], "explode": [35, 5, -35] },
-    { "id": "stopper", "label": "Cama cerâmica 24×24mm", "type": "cylinder", "step": 8, "color": "#f7fafc", "pos": [28, 14.5, 0], "radius": 12, "height": 24, "note": "SOB o fundo do tubo. Isola PETG.", "explode": [50, 5, 15] },
-    { "id": "tube", "label": "Tubo ensaio 16×42 (de 16×100)", "type": "glass", "step": 7, "color": "#7ec8e3", "opacity": 0.55, "closedBottom": true, "pos": [28, 47.5, 0], "radius": 8, "inner": 7, "height": 42, "note": "Cortar 16×100 → 42mm com fundo. Fundo = trava do cap.", "explode": [45, 40, 15] },
-    { "id": "coil", "label": "Bobina (ID16 OD22)", "type": "torus", "step": 7, "color": "#b7791f", "pos": [28, 48, 0], "radius": 9.5, "tube": 2.5, "explode": [45, 55, 15] },
-    { "id": "coil_top", "label": "Bobina (espiras sup.)", "type": "torus", "step": 7, "color": "#b7791f", "pos": [28, 56, 0], "radius": 9.5, "tube": 2.5, "explode": [45, 62, 15] },
-    { "id": "oring", "label": "O-ring 15×3mm", "type": "torus", "step": 7, "color": "#2d3748", "pos": [28, 66, 0], "radius": 7.5, "tube": 1.5, "explode": [45, 72, 15] },
-    { "id": "magnet", "label": "Ímã descanso Ø12×3", "type": "cylinder", "step": 9, "color": "#4a5568", "pos": [-14, 71.5, 0], "radius": 6, "height": 3, "note": "Cola na cavidade da tampa. Preferir diametral.", "explode": [-30, 85, 10] },
-    { "id": "jack", "label": "Jack P4 DC-022", "type": "cylinder", "step": 2, "color": "#2d3748", "pos": [0, 22, -29], "rot": [90, 0, 0], "radius": 4.1, "height": 14, "note": "Furo Ø8.2", "explode": [0, 5, -45] },
-    { "id": "fuse_panel", "label": "Porta-fusível 5×20", "type": "cylinder", "step": 2, "color": "#c05621", "pos": [22, 22, -29], "rot": [90, 0, 0], "radius": 6.6, "height": 16, "note": "Furo Ø13.2", "explode": [35, 5, -45] },
-    { "id": "rocker", "label": "Gangorra Ø20", "type": "cylinder", "step": 2, "color": "#222831", "pos": [-32, 18, 29], "rot": [90, 0, 0], "radius": 10.1, "height": 12, "note": "Furo Ø20.2", "explode": [-40, 12, 42] },
-    { "id": "button", "label": "Botão 19mm", "type": "cylinder", "step": 6, "color": "#1a202c", "pos": [12, 35, 29], "rot": [90, 0, 0], "radius": 9.6, "height": 15, "note": "Furo Ø19.2", "explode": [12, 38, 42] },
-    { "id": "button_head", "label": "Cabeça botão", "type": "cylinder", "step": 6, "color": "#e53e3e", "pos": [12, 35, 35], "rot": [90, 0, 0], "radius": 9.6, "height": 4, "explode": [12, 38, 50] },
-    { "id": "pot", "label": "Pot B10K (corpo)", "type": "cylinder", "step": 6, "color": "#718096", "pos": [-12, 42, 29], "rot": [90, 0, 0], "radius": 8, "height": 13, "note": "Furo bushing Ø7.6; corpo ~Ø16", "explode": [-12, 45, 42] },
-    { "id": "pot_shaft", "label": "Eixo pot", "type": "cylinder", "step": 6, "color": "#a0aec0", "pos": [-12, 42, 38], "rot": [90, 0, 0], "radius": 3, "height": 15, "explode": [-12, 45, 52] },
-    { "id": "led_status", "label": "LED D5", "type": "cylinder", "step": 6, "color": "#48bb78", "pos": [28, 48, 29], "rot": [90, 0, 0], "radius": 2.5, "height": 8, "explode": [28, 50, 42] },
-    { "id": "led_chamber", "label": "LED D6", "type": "cylinder", "step": 6, "color": "#fefcbf", "pos": [38, 48, 29], "rot": [90, 0, 0], "radius": 2.5, "height": 8, "explode": [38, 50, 42] },
-    { "id": "tmp36", "label": "TMP36", "type": "box", "step": 5, "color": "#d69e2e", "pos": [-5, 48, -10], "size": [4, 5, 3], "explode": [-5, 60, -10] },
-    { "id": "dynavap_cap", "label": "Cap M7 (Ø10×27mm)", "type": "cylinder", "step": 10, "color": "#c0c0c0", "pos": [28, 42, 0], "radius": 5, "height": 27, "note": "Apoia no fundo de vidro.", "explode": [45, 55, 15] },
-    { "id": "dynavap_body", "label": "M7 corpo+boca (Ø10×65mm)", "type": "cylinder", "step": 10, "color": "#909090", "pos": [28, 88, 0], "radius": 5, "height": 65, "explode": [45, 105, 15] }
+    { "id": "zvs", "label": "ZVS 55×37×20", "type": "box", "step": 3, "color": "#9b2c2c", "pos": [-10.0, 12.5, -6.0], "size": [55.0, 20.0, 37.0], "explode": [-28.0, 8.0, -20.0], "note": "Piso; direita X=17.5; gap tubo ≥2" },
+    { "id": "mosfet", "label": "XY-MOS 34×17×12", "type": "box", "step": 4, "color": "#2b6cb0", "pos": [-20.0, 30.5, 6.0], "size": [34.0, 12.0, 17.0], "explode": [-40.0, 24.0, 28.0], "note": "Empilhado acima ZVS; standoff ≥2" },
+    { "id": "nano", "label": "Nano 43.2×17.8×11", "type": "box", "step": 5, "color": "#38a169", "pos": [-12.0, 46.0, -4.0], "size": [43.2, 11.0, 17.8], "explode": [-36.0, 58.0, -22.0], "note": "Acima; gap tampa ≥3" },
+    { "id": "tmp36", "label": "TMP36 TO-92", "type": "box", "step": 3, "color": "#d69e2e", "pos": [-5.0, 25.1, -18.0], "size": [4.0, 5.0, 3.0], "explode": [-5.0, 40.0, -40.0], "note": "Sobre o ZVS face traseira; pasta térmica; fora do AABB do PCB" },
+    { "id": "jack", "label": "Jack DC-022 Ø8.2", "type": "cylinder", "step": 2, "color": "#2d3748", "pos": [0.0, 22.0, -29.0], "radius": 4.1, "height": 14.0, "rot": [90, 0, 0], "explode": [0.0, 8.0, -48.0] },
+    { "id": "fuse_panel", "label": "Porta-fusível Ø13.2", "type": "cylinder", "step": 2, "color": "#c05621", "pos": [22.0, 22.0, -29.0], "radius": 6.6, "height": 16.0, "rot": [90, 0, 0], "explode": [36.0, 8.0, -48.0] },
+    { "id": "rocker", "label": "Gangorra Ø20.2", "type": "cylinder", "step": 2, "color": "#222831", "pos": [-32.0, 18.0, 29.0], "radius": 10.1, "height": 12.0, "rot": [90, 0, 0], "explode": [-48.0, 12.0, 46.0] },
+    { "id": "button", "label": "Botão Ø19.2", "type": "cylinder", "step": 6, "color": "#1a202c", "pos": [12.0, 35.0, 29.0], "radius": 9.6, "height": 15.0, "rot": [90, 0, 0], "explode": [12.0, 38.0, 46.0] },
+    { "id": "button_head", "label": "Cabeça botão", "type": "cylinder", "step": 6, "color": "#e53e3e", "pos": [12.0, 35.0, 36.5], "radius": 9.6, "height": 4.0, "rot": [90, 0, 0], "explode": [12.0, 38.0, 54.0] },
+    { "id": "pot", "label": "Pot B10K corpo Ø16", "type": "cylinder", "step": 6, "color": "#718096", "pos": [-12.0, 42.0, 29.0], "radius": 8.0, "height": 13.0, "rot": [90, 0, 0], "explode": [-12.0, 46.0, 46.0] },
+    { "id": "pot_shaft", "label": "Eixo pot Ø6", "type": "cylinder", "step": 6, "color": "#a0aec0", "pos": [-12.0, 42.0, 38.0], "radius": 3.0, "height": 15.0, "rot": [90, 0, 0], "explode": [-12.0, 46.0, 56.0] },
+    { "id": "led_status", "label": "LED D5 Ø5.2", "type": "cylinder", "step": 6, "color": "#48bb78", "pos": [28.0, 48.0, 29.0], "radius": 2.5, "height": 8.0, "rot": [90, 0, 0], "explode": [28.0, 52.0, 46.0] },
+    { "id": "led_chamber", "label": "LED D6 Ø5.2", "type": "cylinder", "step": 6, "color": "#fefcbf", "pos": [38.0, 48.0, 29.0], "radius": 2.5, "height": 8.0, "rot": [90, 0, 0], "explode": [38.0, 52.0, 46.0] },
+    { "id": "stopper", "label": "Cama Ø24×8", "type": "cylinder", "step": 7, "color": "#f7fafc", "pos": [28.0, 6.5, 0.0], "radius": 12.0, "height": 8.0, "explode": [52.0, 4.0, 12.0], "note": "Assenta Y=2.5; topo Y=10.5" },
+    { "id": "tube", "label": "Tubo Ø16×42", "type": "glass", "step": 7, "color": "#7ec8e3", "opacity": 0.55, "closedBottom": true, "pos": [28.0, 31.5, 0.0], "radius": 8.0, "inner": 7.0, "height": 42.0, "explode": [52.0, 36.0, 12.0], "note": "Fundo Y=10.5; topo Y=52.5" },
+    { "id": "coil", "label": "Bobina ID16 OD22", "type": "torus", "step": 7, "color": "#b7791f", "pos": [28.0, 36.0, 0.0], "radius": 9.5, "tube": 1.5, "explode": [52.0, 44.0, 12.0] },
+    { "id": "coil_mid", "label": "Bobina espiras", "type": "torus", "step": 7, "color": "#b7791f", "pos": [28.0, 42.0, 0.0], "radius": 9.5, "tube": 1.5, "explode": [52.0, 50.0, 12.0] },
+    { "id": "coil_top", "label": "Bobina espiras+", "type": "torus", "step": 7, "color": "#b7791f", "pos": [28.0, 48.0, 0.0], "radius": 9.5, "tube": 1.5, "explode": [52.0, 56.0, 12.0] },
+    { "id": "coil_hot", "label": "Bobina hot-band", "type": "torus", "step": 7, "color": "#d69e2e", "pos": [28.0, 54.0, 0.0], "radius": 9.5, "tube": 1.5, "explode": [52.0, 62.0, 12.0] },
+    { "id": "oring", "label": "O-ring 15×3", "type": "torus", "step": 7, "color": "#2d3748", "pos": [28.0, 66.0, 0.0], "radius": 7.5, "tube": 1.5, "explode": [52.0, 78.0, 12.0] },
+    { "id": "magnet", "label": "Ímã Ø12×3", "type": "cylinder", "step": 9, "color": "#4a5568", "pos": [-14.0, 71.5, 0.0], "radius": 6.0, "height": 3.0, "explode": [-30.0, 90.0, 10.0] },
+    { "id": "dynavap_cap", "label": "Cap M7 Ø10×27", "type": "cylinder", "step": 10, "color": "#c0c0c0", "pos": [28.0, 24.0, 0.0], "radius": 5.0, "height": 27.0, "explode": [56.0, 40.0, 12.0], "note": "Fundo no vidro Y=10.5" },
+    { "id": "dynavap_body", "label": "M7 corpo Ø10×92", "type": "cylinder", "step": 10, "color": "#909090", "pos": [28.0, 83.5, 0.0], "radius": 5.0, "height": 92.0, "explode": [56.0, 120.0, 12.0] }
   ],
   "wires": {
     "power": [
-      { "from": [6, 22, -29], "to": [20, 14, -20], "color": "#e53e3e", "step": 2 },
-      { "from": [20, 14, -20], "to": [-34, 18, 20], "color": "#e53e3e", "step": 2 },
-      { "from": [-34, 22, 20], "to": [-20, 14, 18], "color": "#e53e3e", "step": 3 },
-      { "from": [-20, 14, 18], "to": [-12, 10, -3], "color": "#e53e3e", "step": 3 },
-      { "from": [-6, 22, -29], "to": [-12, 6, -3], "color": "#1a202c", "step": 2 }
+      { "from": [0.0, 22.0, -26.0], "to": [22.0, 22.0, -26.0], "color": "#e53e3e", "step": 2 },
+      { "from": [22.0, 22.0, -26.0], "to": [-32.0, 18.0, 20.0], "color": "#e53e3e", "step": 2 },
+      { "from": [-32.0, 18.0, 20.0], "to": [-20.0, 30.5, 6.0], "color": "#e53e3e", "step": 4 },
+      { "from": [-20.0, 30.5, 6.0], "to": [-10.0, 18.0, -6.0], "color": "#e53e3e", "step": 4 },
+      { "from": [0.0, 18.0, -26.0], "to": [-10.0, 8.0, -6.0], "color": "#1a202c", "step": 2 }
     ],
     "signal": [
-      { "from": [-12, 54, -3], "to": [-20, 14, 18], "color": "#4299e1", "step": 4 },
-      { "from": [-12, 54, 0], "to": [12, 28, 29], "color": "#9f7aea", "step": 6 },
-      { "from": [-12, 54, -6], "to": [-5, 48, -10], "color": "#ed8936", "step": 5 },
-      { "from": [-12, 54, -9], "to": [-12, 35, 29], "color": "#63b3ed", "step": 6 }
+      { "from": [-12.0, 46.0, -4.0], "to": [-20.0, 30.5, 6.0], "color": "#4299e1", "step": 5 },
+      { "from": [-12.0, 46.0, -4.0], "to": [12.0, 35.0, 24.0], "color": "#9f7aea", "step": 6 },
+      { "from": [-12.0, 46.0, -4.0], "to": [-5.0, 25.1, -18.0], "color": "#ed8936", "step": 5 },
+      { "from": [-12.0, 46.0, -4.0], "to": [-12.0, 42.0, 24.0], "color": "#63b3ed", "step": 6 },
+      { "from": [-12.0, 46.0, -4.0], "to": [28.0, 48.0, 24.0], "color": "#48bb78", "step": 6 }
     ]
   },
   "steps": [
-    { "n": 1, "title": "Caixa vazia", "desc": "92×58×65mm. STL em caixa-3d/stl/." },
-    { "n": 2, "title": "Trilha 12V", "desc": "Jack → fusível → rocker." },
-    { "n": 3, "title": "XY-MOS", "desc": "34×17×12mm na base." },
-    { "n": 4, "title": "Arduino Nano", "desc": "Acima do ZVS." },
-    { "n": 5, "title": "ZVS + TMP36", "desc": "TMP36 no dissipador." },
-    { "n": 6, "title": "Painel frontal", "desc": "Botão, pot, rocker, LEDs." },
-    { "n": 7, "title": "Bobina + tubo", "desc": "16×100 → cortar 42mm com fundo. Bobina + O-ring." },
-    { "n": 8, "title": "Cama 24×24", "desc": "Cerâmica SOB o fundo. Cap para no vidro." },
-    { "n": 9, "title": "Tampa + ímã", "desc": "Collarinho Ø16. Colar ímã Ø12×3 no topo esquerdo." },
-    { "n": 10, "title": "Pronto", "desc": "Cap no fundo/bobina. Descanso no ímã. Clique 5–8s." }
+    { "n": 1, "title": "Caixa vazia", "desc": "92×58×65 congelada. Furos = box_params. Fonte 12V fora." },
+    { "n": 2, "title": "Trilha 12V", "desc": "Jack → fusível painel → rocker (positivo curto)." },
+    { "n": 3, "title": "ZVS + TMP36", "desc": "ZVS 55×37×20 no piso X=-10; TMP36 na face −Z / vents." },
+    { "n": 4, "title": "MOSFET", "desc": "XY-MOS empilhado acima do ZVS (standoff ≥2 mm)." },
+    { "n": 5, "title": "Nano", "desc": "43.2×17.8×11 acima; isolado da parede; D3→TRIG." },
+    { "n": 6, "title": "Painel frontal", "desc": "Botão, pot, LEDs nos furos congelados." },
+    { "n": 7, "title": "Câmara", "desc": "Cama Ø24×8 → tubo 42 → bobina ID16 OD22 → O-ring." },
+    { "n": 8, "title": "Checagem térmica", "desc": "Vents livres; gap ZVS≥3; não vedar tampa." },
+    { "n": 9, "title": "Tampa + ímã", "desc": "Collarinho Ø22; ímã X=-14 no pocket." },
+    { "n": 10, "title": "Pronto", "desc": "Cap no fundo de vidro; M7 92 mm; clique 5–8 s." }
+  ],
+  "clearance_checks": [
+    { "name": "zvs_left_wall", "value_mm": 6.0, "min": 3.0, "ok": true, "note": "left X=-37.5 vs inner -43.5" },
+    { "name": "zvs_rear_wall", "value_mm": 2.0, "min": 2.0, "ok": true, "note": "ZVS Z=-24.5 vs inner -26.5; ≥2 aceitável com vents" },
+    { "name": "zvs_to_tube_X", "value_mm": 2.5, "min": 2.0, "ok": true, "note": "ZVS right 17.5 vs tube left 20.0" },
+    { "name": "zvs_to_mosfet_Y", "value_mm": 2.0, "min": 2.0, "ok": true, "note": "ZVS top 22.5 vs MOSFET bottom 24.5" },
+    { "name": "nano_to_lid_inner", "value_mm": 5.5, "min": 3.0, "ok": true, "note": "Nano top 51.5 vs lid inner 62.5" },
+    { "name": "nano_to_zvs_Y", "value_mm": 18.0, "min": 2.0, "ok": true },
+    { "name": "coil_id_vs_tube", "value_mm": 0.0, "min": 0.0, "ok": true, "note": "ID16 = tube OD16 (juste); folga enrolamento 0.2–0.5 na prática" },
+    { "name": "coil_od_vs_side_wall", "value_mm": 4.5, "min": 2.0, "ok": true, "note": "coil OD22 at X=28 → right 39 vs inner 43.5" },
+    { "name": "bed_on_floor", "value_mm": 0.0, "ok": true, "note": "cama Y=2.5…10.5" },
+    { "name": "tube_on_bed", "value_mm": 0.0, "ok": true },
+    { "name": "magnet_pocket_x", "value_mm": 0.0, "ok": true, "note": "X=-14 = box_params" },
+    { "name": "panel_holes_match_cad", "value_mm": 0.0, "ok": true, "note": "rocker/pot/btn/leds/jack/fuse = box_params" },
+    { "name": "no_fuse_holder_duplicate", "value_mm": 1.0, "ok": true, "note": "só fuse_panel" },
+    { "name": "mosfet_aabb_vs_zvs", "value_mm": 0.0, "ok": true, "note": "sem overlap: MOSFET Y≥22, ZVS Y≤22.5 com standoff" }
   ]
 }

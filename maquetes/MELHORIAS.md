@@ -2,7 +2,7 @@
 
 A **v1 desktop** está fechada (set/2026): caixa [lisa](../caixa-3d/print/v1-lisa/), [relevo AMS](../caixa-3d/print/v1/) ou [cavas](../caixa-3d/print/v1-cavas/), furos alinhados ao BOM, firmware lento, fonte 12 V 10 A na tomada.
 
-O [visualizador](viewer.html) e [dimensions.json](dimensions.json) descrevem essa caixa. Não edite FreeCAD/acsdog para a v1.
+O [visualizador](viewer.html) e [dimensions.json](dimensions.json) **v1.1** descrevem o interior com precisão 0,1 mm ([LAYOUT_INTERNO.md](LAYOUT_INTERNO.md)). A caixa física (furos/STL) permanece congelada. Não edite FreeCAD/acsdog para a v1.
 
 ---
 
@@ -12,7 +12,8 @@ O [visualizador](viewer.html) e [dimensions.json](dimensions.json) descrevem ess
 - Traseira: jack Ø8,2 · porta-fusível 5×20 Ø13,2 · vents 4×10×4
 - Tampa: bocal à direita, ímã X=−14 no centro do tribal
 - Tribal opcional: lisa · relevo AMS · cavas + cola
-- TMP36 no dissipador, fios 16 AWG curtos, tubo ensaio + cama 24×24 — ver [MONTAGEM.md](MONTAGEM.md)
+- TMP36 no dissipador, fios 16 AWG curtos, tubo ensaio + cama **Ø24×8** — ver [MONTAGEM.md](MONTAGEM.md) · [LAYOUT_INTERNO.md](LAYOUT_INTERNO.md)
+- Maquete **v1.1**: ZVS no piso, MOSFET empilhado, Nano acima; sem colisões AABB documentadas
 
 ---
 
@@ -41,6 +42,6 @@ Coil chuck do acsdog continua **opcional** se for rebobinar 16 AWG na mesa.
 - Pack 18650/21700 + BMS adequado (≥10 A) — **não** power bank de celular
 - Gangorra com LED que acenda em **12 V DC** (o kit 127/220 V AC não ilumina)
 - Viewer carregando o STL real (`STLLoader`)
-- Ajustes pós-impressão medidos na peça física → atualizar `dimensions.json`
+- Ajustes pós-impressão medidos na peça física → atualizar `dimensions.json` (furos só se a caixa for refeita)
 
 Depois de montar, compare a caixa real com o viewer e anote desvios aqui.
